@@ -18,12 +18,13 @@ void CheckOption(int option);
 void login(user *u);
 void reg();
 void usermenu(user *u);
-
+void work_pref(user *u);
+void check_user_prefdays(user *u);
 
 // MAIN:
 int main(void)
 {
-    
+
     int option = introduction(); // Scanf
     CheckOption(option);         // determined answear
 
@@ -105,7 +106,7 @@ void login(user *u)
         int match = 0;
         rewind(f);
 
-        while (fscanf(f,"%[^:]:%s\n", file_username, file_password) == 2)
+        while (fscanf(f, "%[^:]:%s\n", file_username, file_password) == 2)
         {
             if (strcmp(username, file_username) == 0 &&
                 strcmp(password, file_password) == 0)
@@ -123,8 +124,8 @@ void login(user *u)
             printf("You have successfully logged in!\n");
             printf("----Welcome to SmartPlan----\n----%s----\n\n\n", u->username);
             // calling the usermenu to the user who's logged in.
-            usermenu(u); 
-             break;         
+            usermenu(u);
+            break;
         }
         else
         {
@@ -134,7 +135,6 @@ void login(user *u)
 
     fclose(f);
 }
-
 
 // Register
 void reg() // The user will be registered
@@ -176,38 +176,185 @@ void reg() // The user will be registered
 
 // Menu for specifik user
 void usermenu(user *u)
-{  
+{
     int option_answer;
     int return_answer;
 
     printf("This is the menu for the user:---%s---:\n", u->username);
-    
-    //options for the user who's logged in:
+
+    // options for the user who's logged in:
     printf("1:--> See workshedule:\n");
     printf("2:--> edit workpreference:\n");
     printf("3:--> See workpreference:\n");
     printf("4:--> logout:\n\n");
-    
-    scanf("%d",&option_answer);
 
-    //checks the answer:
-    if(option_answer == 4)
+    scanf("%d", &option_answer);
+
+    // checks the answer:
+    if (option_answer == 4)
     {
         printf("You are now logged out of the account: %s\n\n", u->username);
 
         printf("Do you wish to login again?\n");
         printf("1:--> (yes)\n2:--> (no)\n");
-        scanf("%d",&return_answer);
+        scanf("%d", &return_answer);
 
-        if(return_answer == 1)
+        if (return_answer == 1)
         {
-            login(u); 
+            login(u);
         }
+
         else
         {
             printf("Thank you for using our service!");
         }
     }
+    else if (option_answer == 3)
+    {
+
+        check_user_prefdays(u);
+    }
+
+    else if (option_answer == 2)
+    {
+
+        work_pref(u);
+    }
+}
+
+// function which saves users workdays-preferences for the user whos logged in
+void work_pref(user *u)
+{
+    int answer_save_prefdays;
+    char file_username[20];
+    char pref1[20], pref2[20], pref3[20];
+    int updated = 0;
+
+    printf("You chose to edit your workdays preferences for user --> %s\n\n", u->username);
+    printf("Input 3 preferred days (Monday-Sunday): ");
+
+    scanf("%s %s %s",
+          u->pref_days[0],
+          u->pref_days[1],
+          u->pref_days[2]);
+
+    printf("\nYour preference-days are: %s, %s and %s\nSave? (1.yes / 2.no): ",
+           u->pref_days[0], u->pref_days[1], u->pref_days[2]);
+
+    scanf("%d", &answer_save_prefdays);
+
+    if (answer_save_prefdays != 1)
+        return;
+
+    FILE *oldFile = fopen("pref_days.txt", "r");
+    FILE *tempFile = fopen("temp.txt", "w");
+
+    if (!tempFile)
+    {
+        printf("Error opening temp file!\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // If file exists, copy/update
+    if (oldFile)
+    {
+        while (fscanf(oldFile, " %[^:]:%[^|]|%[^|]|%s",
+                      file_username, pref1, pref2, pref3) == 4)
+        {
+            if (strcmp(file_username, u->username) == 0)
+            {
+                // OVERWRITE THIS USER
+                fprintf(tempFile, "%s:%s|%s|%s\n",
+                        u->username,
+                        u->pref_days[0],
+                        u->pref_days[1],
+                        u->pref_days[2]);
+                updated = 1;
+            }
+            else
+            {
+                // Copy other users unchanged
+                fprintf(tempFile, "%s:%s|%s|%s\n",
+                        file_username, pref1, pref2, pref3);
+            }
+        }
+        fclose(oldFile);
+    }
+
+    // If user was NOT found, add new entry
+    if (!updated)
+    {
+        fprintf(tempFile, "%s:%s|%s|%s\n",
+                u->username,
+                u->pref_days[0],
+                u->pref_days[1],
+                u->pref_days[2]);
+    }
+
+    fclose(tempFile);
+
+    // Replace original file
+    remove("pref_days.txt");
+    rename("temp.txt", "pref_days.txt");
+
+    printf("\nPreferences saved and updated successfully!\n");
+}
+
+/* This function opens the text-file with every users preference days, and looks for the
+matching username in the file in order to find the coresponding days for the user*/
+void check_user_prefdays(user *u)
+{
+
+    char file_username[20];
+    char pref1[20], pref2[20], pref3[20];
+
+    FILE *prefdays = fopen("pref_days.txt", "r");
+
+    if (prefdays == NULL)
+    {
+        printf("ERROR opening pref_days.txt!\n");
+        exit(EXIT_FAILURE);
+    }
+
+    int found = 0;
+
+    // Format: username:pref1|pref2|pref3
+    while (fscanf(prefdays, " %[^:]:%[^|]|%[^|]|%s",
+                  file_username, pref1, pref2, pref3) == 4)
+    {
+        if (strcmp(u->username, file_username) == 0)
+        {
+            strcpy(u->pref_days[0], pref1);
+            strcpy(u->pref_days[1], pref2);
+            strcpy(u->pref_days[2], pref3);
+
+            printf("User %s prefers the following days: %s, %s and %s\n",
+                   u->username,
+                   u->pref_days[0],
+                   u->pref_days[1],
+                   u->pref_days[2]);
+
+            found = 1;
+            break;
+        }
+    }
+
+    if (!found)
+    {
+        int answer_create;
+        printf("No saved preferences found for user--> %s\n\n", u->username);
+        printf("Do you want to create preferences for user-->%s\n", u->username);
+        printf("(1.yes/2.no)-->");
+        scanf("%d", &answer_create);
+
+        if (answer_create == 1)
+        {
+
+            work_pref(u);
+        }
+    }
+
+    fclose(prefdays);
 }
 
 
