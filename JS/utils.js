@@ -1,0 +1,1 @@
+/* Hjælpefunktioner, fx fetch til database, filter, kalender */
