@@ -1,1 +1,0 @@
-/* JS til admin funktioner */
