@@ -3,15 +3,18 @@
 <head> <!--head indeholder metadata som er data der ikke bliver vist på siden-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--fortæller browseren, hvordan siden skal skaleres på forskellige skærme-->
     <title>Min Hjemmeside</title> <!--vises i browserens faneblad-->
-    <link rel="stylesheet" href="style.css"> <!--forbinder html siden med css-filen-->
+    <link rel="stylesheet" href="css/style.css"> <!--forbinder html siden med css-filen-->
 </head>
 <body> <!--indeholder alt indhold som vises på siden-->
     <h1>Clubs and Events!</h1>
     <p>This is the Login Page</p>
     <!-- Knap der går til dashboard -->
     <!-- Knap der går til dashboard -->
-    <button id="goDashboardBtn">Gå til Dashboard</button>
-
+     <div class="button-container">
+        <button class="role-button" id="goDashboardStudent">Student</button>
+        <button class="role-button" id="goDashboardClubOwner">Club Owner</button>
+        <button class="role-button" id="goDashboardAdmin">Admin</button>
+    </div>
     <script src="js/pages/loginPage.js"></script>
     <!--<script src="script.js"></script> <!--forbinder html siden med js-filen-->
 </body>

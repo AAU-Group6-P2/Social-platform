@@ -1,1 +1,20 @@
 /*general styling*/
+
+/*style for role-button*/
+.button-container {
+    display: flex;
+    flex-direction: column;  /* placerer dem lodret */
+    align-items: center;     /* centrerer dem */
+    gap: 15px;               /* afstand mellem knapper */
+}
+.role-button {
+    background-color: #ebeaea;  /* Blå farve */
+    color: rgb(10, 10, 10);               /* Tekstfarve */
+    border: none; /* 2px solid rgb(244, 217, 13); */
+    padding: 10px 20px;
+    border-radius: 5px;   /* Dette runder hjørnerne */
+}
+.role-button:hover {
+    background-color: #cac8c8;  /* Mørkere når man holder musen over */
+    color: rgb(0, 2, 108);
+}

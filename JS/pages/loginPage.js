@@ -12,9 +12,23 @@ form.addEventListener("submit", function(event) {
     login(username, password);
 });*/
 
-// Hurtig knap til dashboard
-const btn = document.getElementById("goDashboardBtn");
+// Hent knapperne
+const btnStudent = document.getElementById("goDashboardStudent");
+const btnClubOwner = document.getElementById("goDashboardClubOwner");
+const btnAdmin = document.getElementById("goDashboardAdmin");
 
-btn.addEventListener("click", () => {
+// Redirect til dashboard
+btnStudent.addEventListener("click", () => {
+    localStorage.setItem("role", "student");
+    window.location.href = "dashboard.html";
+});
+
+btnClubOwner.addEventListener("click", () => {
+    localStorage.setItem("role", "clubOwner");
+    window.location.href = "dashboard.html";
+});
+
+btnAdmin.addEventListener("click", () => {
+    localStorage.setItem("role", "admin");
     window.location.href = "dashboard.html";
 });
