@@ -7,18 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MapOut - Dashboard</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/user.css">
-    <link rel="stylesheet" href="css/club_owner.css">
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/roles/user.css">
+    <link rel="stylesheet" href="css/roles/club_owner.css">
+    <link rel="stylesheet" href="css/roles/admin.css">
 </head>
-<script type="module" src="js/pages/dashboardPage.js"></script>
 <body>
 
     <h1>Dashboard</h1>
     <p>This is the joint page </p>
     <p id="roleText"></p>
-    <button id="goBackToLoginPage">Go back to login page</button>
     
+    <!--Test for visning af rollespecifikke elementer-->
+    <button class="club-btn-create-event" data-permission="create_event">Create Event</button>
+    <button class="admin-btn-delete-event" data-permission="delete_event">Delete Event</button>
+    <button class="role-button" id="logOut">Log Out</button>
     
+    <script type="module" src="js/pages/dashboardPage.js"></script>
 </body>
 </html>

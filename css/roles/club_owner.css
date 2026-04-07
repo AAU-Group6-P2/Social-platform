@@ -1,1 +1,8 @@
 /* Specifik styling til 'club_owner'*/
+
+/* Styling baseret på body-class */
+.club_owner .club-btn-create-event {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+}
