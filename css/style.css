@@ -83,3 +83,161 @@
     background-position: center;
     background-repeat: no-repeat;
 }
+
+/* Dashboard kalender */
+
+li {
+    list-style: none; /*lister for normalt bullets, som vi her fjerner*/
+}
+
+ul {
+    margin: 0; /*fjerner afstand udenomlisten*/
+    padding: 0; /*fjerne indrykning inden i listen*/
+}
+
+.side {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.sidebar {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px; /*mellemrum mellem de to sidebarer*/
+    border-right: 1px solid;
+}
+
+.sidebartop, sidebarbottom {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.menu-item {
+    padding: 20px;
+    border-radius: 5px;
+    background: white;
+    border: 1px solid;
+}
+
+.main {
+ display: flex;
+ flex-direction: column;
+ gap: 10px;
+ padding: 20px;
+}
+
+.main h1 {
+    margin-top: 30px;
+}
+
+.topbar {
+    height: 25px;
+    background: lightgray;
+    border-radius: 5px;
+
+}
+.datofilter, .filter {
+    height: 50px;
+    background: lightgray;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding-left: 16px; /*brug padding i boksen og ikke i teksten for at justere tekst i en boks*/
+}
+
+.datofilter{
+    margin-left: 200px;
+    width: 60%;
+}
+
+#dato {
+
+}
+
+.calendarcontainer { /*ydreramme*/
+    display: grid;
+    grid-template-columns: 50px auto; /*to kolonner - første 50px bred, og anden er auto, som er resten af pladsen*/
+    grid-template-rows: auto; /*her er der sådan set ikke defineret flere rækker hmm*/
+    gap: 1px 1px; /*1px mellem hver linje i griddet*/
+    grid-template-areas: /*navngiver områder i griddet*/
+    ". header" /*øverst til venstre laves der et tom felt og øverst til højre er der header*/
+    "timeslotscontainer main"; /*nederest til venstre er der timeslot og nederst til højre har vi main*/
+}
+
+    .weekdays,
+    .daynumbers { /*begge lister bliver lavet som grids med 7 colummns, hver kolonne med lige meget plads 1 fraction af 7*/
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+    }
+
+    .weekdays {
+        background-color: lightblue;
+        border-radius: 5px;
+    }
+
+    .daynumbers {
+        min-height: 2em; /* giver lidt ldoret plads, nogrte med ca. 2 gange teksten størrelse*/
+    }
+
+    .header {
+        background: gray;
+        grid-area: header;
+    }
+
+    .timeslotscontainer {
+        background-color: lightgray;
+        grid-area: timeslotscontainer;
+        border-radius: 10px ;
+    }
+
+    .timeslots {
+        display: flex; /*flex er en måde at arrangere elementer på*/
+        flex-direction: column; /*lodret under hinanden*/
+        align-items: center;
+    }
+
+    .timeslots li{
+        min-height: 40px;
+        position: relative;
+    }
+
+    .timeslots li::after { /*betyder lav noget efter indholdet*/
+        content: ""; /*ekstra pseudo element visuelt*/
+        position: absolute;
+        left: 0px;
+        width: 77vw;
+        height: 1px;
+        background: gray;
+        z-index: 1;
+
+    }
+
+    .eventcontainer { /*hele boksen med event - som har 2 classes slot og slot1 (styling og placering)*/
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: repeat(96, 10px); /** 4 kvarter på en time, 96 kvarter på 24 timer,
+        hvert kvarter er 10px.*/
+        grid-area: main;
+        position: relative;
+    }
+
+    .slot { /*"indeni" eventcontainer - generelt om slot placering og sån*/
+        position: relative;
+        background: green;
+        border-radius: 5px ;
+        z-index: 5; /*lag*/
+        color: white;
+        font-size: 15px;
+
+    }
+
+    .slot1 { /*"indeni" eventcontainer - specifikt eksempel*/
+        top: 240px;     /* 00:00-6:00 <=> 6*60 = 360 min, 360 / 15 = 24  */
+        height: 40px;   /* hvert kvarter er 10px, dvs, 30 minutter er 20px*/
+        width: 100%;    /*den vil udfylde 1/7-del af eventcontainer*/
+        grid-column: 3  /*inddelt i 7 collumns så dette beskrive hvilken dag*/
+        
+    }
