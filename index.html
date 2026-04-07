@@ -5,17 +5,20 @@
     <title>Min Hjemmeside</title> <!--vises i browserens faneblad-->
     <link rel="stylesheet" href="css/style.css"> <!--forbinder html siden med css-filen-->
 </head>
-<body> <!--indeholder alt indhold som vises på siden-->
-    <h1>Clubs and Events!</h1>
-    <p>This is the Login Page</p>
-    <!-- Knap der går til dashboard -->
-    <!-- Knap der går til dashboard -->
-     <div class="button-container">
-        <button class="role-button" id="goDashboardStudent">Student</button>
-        <button class="role-button" id="goDashboardClubOwner">Club Owner</button>
-        <button class="role-button" id="goDashboardAdmin">Admin</button>
+<body class="login-page"> <!--styling af log ind pagen (login-page)-->
+    <div class="login-box"> <!--styling af login-box'en-->
+        <img class="AAU-image" src="assets/images/AAU-Logo.png" alt="Aalborg University Logo">
+        <p class="text">Choose a user type</p>
+
+        <!-- Knap der går til dashboard -->
+        <div class="button-container">
+            <button class="role-button" id="goDashboardStudent">Student</button>
+            <button class="role-button" id="goDashboardClubOwner">Club Owner</button>
+            <button class="role-button" id="goDashboardAdmin">Admin</button>
+        </div>
     </div>
     <script src="js/pages/loginPage.js"></script>
+    <script type="module" src="js/pages/dashboardPage.js"></script>
     <!--<script src="script.js"></script> <!--forbinder html siden med js-filen-->
 </body>
 </html>

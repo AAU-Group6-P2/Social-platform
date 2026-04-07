@@ -39,6 +39,9 @@ export const roles = {
     ]
 };
 
-export function hasPermission(role, permission) {
-    return roles[role]?.includes(permission);
+import { getRole } from "./auth.js"; //returnerer brugerens rolle fra sessionStorage
+
+export function hasPermission(permission) { //permission = fx "create_event"
+    const role = getRole();
+    return roles[role]?.includes(permission); //roles[role] henter array’en med alle permissions for den nuværende bruger. includes(permission) returnerer true/false til om grugeren må udføre handningen
 }
