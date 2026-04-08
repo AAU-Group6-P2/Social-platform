@@ -343,35 +343,3 @@ ul {
 .hidden {
   display: none;
 }
-
-/*
-.club_or_event_application {
-  position: fixed;
-  inset: 0;                 /* top:0 right:0 bottom:0 left:0 */
-  background: rgba(0, 0, 0, 0.5);  /* dark overlay */
-  display: flex;
-  /*justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.create-club-or-event_box_content {
-  background: white;
-  width: 500px;
-  max-width: 90%;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-
-.form-row {
-    display: flex;
-    gap: 1rem;
-}
-
-.form-row input,
-.form-row textarea {
-    flex: 1;
-}
-*/
