@@ -42,6 +42,20 @@ function initDashboard() {
         logOut.addEventListener("click", () => { //lyt efter om der bliver klikket
             window.location.href = "index.html";
         });
+
+    const apply_create_club_or_event = document.getElementById("createClubOrEvent");
+    const apply_create_club_or_event_box = document.getElementById("create-club-or-event_box");
+    const close_apply_create_club_or_event = document.getElementById("close-page");
+
+    // Åbn application box
+    apply_create_club_or_event.addEventListener("click", () => {
+        apply_create_club_or_event_box.classList.remove("hidden");
+    });
+
+    // Luk application box
+    close_apply_create_club_or_event.addEventListener("click", () => {
+        apply_create_club_or_event_box.classList.add("hidden");
+    });
     
 }
 

@@ -15,7 +15,8 @@ export const roles = {
         "view_clubs",
         "apply_create_club",
         "view_calendar",
-        "filter_clubs"
+        "filter_clubs",
+        "create-club-or-event"
     ],
     club_owner: [
        "view_events",
@@ -24,7 +25,8 @@ export const roles = {
         "view_calendar",
         "create_event",
         "edit_own_event",
-        "send_notifications"
+        "send_notifications",
+        "create-club-or-event"
     ],
     admin: [
         "view_events",

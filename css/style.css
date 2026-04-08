@@ -13,13 +13,24 @@
     }
 
 }
-/*style for role-button*/
+
+/* Base button container*/
 .button-container {
     display: flex;
-    flex-direction: column;  /* placerer dem lodret */
-    align-items: center;     /* centrerer dem */
-    gap: 15px;               /* afstand mellem knapper */
+    gap: 15px;
+    margin-top: 20px;
 }
+/* for horizontal buttors*/
+.button-container-horizontal {
+    flex-direction: row;
+    justify-content: center;
+}
+/*for vertical buttors*/
+.button-container-vertical {
+    flex-direction: column;
+    align-items: center;
+}
+
 .role-button {
     background-color: #ebeaea;  /* grå farve */
     color: rgb(10, 10, 10);               /* Tekstfarve */
@@ -34,7 +45,7 @@
 
 /*skjul som standard*/
 .club-btn-create-event,
-.admin-btn-delete-event {
+.admin-btn-delete-event{
     display: none;
     margin: 10px;
     padding: 10px 20px;
@@ -241,3 +252,126 @@ ul {
         grid-column: 3  /*inddelt i 7 collumns så dette beskrive hvilken dag*/
         
     }
+
+
+/* Application to create club or event*/
+/* Form overlay */
+#create-club-or-event_box {
+    position: absolute;  /* overlay on top of content */
+    top: 120px;          /* below the big heading ("Events & Clubs") and top bar */
+    left: 250px;         /* width of your sidebar */
+    right: 20px;         /* small gap on right */
+    height: calc(100vh - 140px); /* full viewport height minus top margin */   
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 30px;
+    overflow-y: auto;    /* allow scrolling if content is tall */
+    z-index: 100;        /* on top of everything */
+}
+/* Inner content can still scroll*/
+#create-club-or-event_box_content {
+    max-width: 100%;
+    height: 100%;
+}
+/* Container */
+#create-club-or-event_box { /*use # because it is uniqe and can not be reused*/
+    max-width: 700px;
+    margin: 50px auto;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    padding: 30px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* Heading */
+#create-club-or-event_box h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Form sections */
+#application_for_club_or_event_form p {
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+/* Inputs & Textareas */
+#application_for_club_or_event_form input,
+#application_for_club_or_event_form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/*Makes the areas bigger*/
+#application_for_club_or_event_form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+/* Form rows, so they are not on to of each other  */
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.checkbox-group {
+    margin: 10px 0;
+}
+
+/* they are beside each other and text under check box*/
+#application_for_club_or_event_form label {
+    display: inline-block;
+    margin-right: 20px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+/*
+.club_or_event_application {
+  position: fixed;
+  inset: 0;                 /* top:0 right:0 bottom:0 left:0 */
+  background: rgba(0, 0, 0, 0.5);  /* dark overlay */
+  display: flex;
+  /*justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.create-club-or-event_box_content {
+  background: white;
+  width: 500px;
+  max-width: 90%;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-row input,
+.form-row textarea {
+    flex: 1;
+}
+*/
