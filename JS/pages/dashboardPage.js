@@ -4,6 +4,10 @@
 // Import RBAC
 import { hasPermission } from "../core/rbac.js"; //Henter funktionen hasPermission fra rbac.js
 import { getRole } from "../core/auth.js";
+
+/*Import the club list */
+    import { getClubs } from "./clubServices.js";
+
  
 // Styling baseret på role
 function applyRoleClass() { //tilføjer body.classList.add("club_owner") eller body.classList.add("admin")
@@ -72,6 +76,25 @@ function initDashboard() {
         });
     }
 
+
+    /*Import the club list */
+    let clubsLoaded = false; //makes sure we do not load double
+
+    async function loadClubs(){
+        if(clubsLoaded) return;
+
+        const clubs = await getClubs();
+        const container = document.getElementById("club-list");
+
+        container.innerHTML = clubs.map(club => `
+            <div class="club-card">
+                <h3>${club.name}</h3>
+                <img src="${club.image}" alt="${club.name}" class="club-img"/>
+            </div>
+        `).join("");
+    }
+
+
     /*opening and closing of the club list */
     
     const clubListLink = document.getElementById("clubListLink");
@@ -84,9 +107,11 @@ function initDashboard() {
             // Hent HTML fra seperat fil
             const response = await fetch("components/club_list.html");
             const html = await response.text();
-            console.log(clubListBox);
+
             //Indsæt HTML i container
             clubListBox.innerHTML = html;
+            
+            await loadClubs();
 
             //Vis box
             clubListBox.classList.remove("hidden");
@@ -97,6 +122,7 @@ function initDashboard() {
                 closeClubList.addEventListener("click", () => {
                     clubListBox.classList.add("hidden");
                     clubListBox.innerHTML = "";
+                    clubsLoaded = false; //only loads clubs when modal is opened.
                 });
             }
         });

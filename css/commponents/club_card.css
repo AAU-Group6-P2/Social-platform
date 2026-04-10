@@ -1,0 +1,17 @@
+
+.club-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 10px;
+  text-align: left;
+  background: white;
+}
+
+.club-card img.club-img {
+  width: 20%;
+  height: 20%;
+  object-fit: cover;
+  border-radius: 0%;
+  margin-top: 10px;
+}
