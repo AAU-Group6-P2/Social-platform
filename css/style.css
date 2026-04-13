@@ -123,17 +123,41 @@
   inset: 0;
   z-index: 20;
 
-  background-color:#ffffff; /* Gray overlay feel (the background is white)*/
+  background-color: #ffffff; /* Gray overlay feel (the background is white)*/
   padding-left: 20px; /*space between the sidebar*/
 }
 
 #club-list-inner {
-  background-color:#f3f3f3;
+  background-color: #f3f3f3;
   margin: 0 auto;
 
   border: 1px solid #333;
   border-radius: 8px;
   padding: 20px;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Form overlay */
+#create-club-or-event_box {
+  position: absolute; /* Position relative to .topbar */
+  top: 100px; /* Appear directly under the topbar */
+  left: 0;
+  right: 0; /* Fill the width of topbar */
+  bottom: 0;
+  z-index: 20;
+  background-color: #ffffff; /* Gray overlay feel (the background is white)*/
+  left: 230px; /* 👈 starts AFTER idebar */
+}
+
+#create-club-or-event-inner {
+  background-color: #f3f3f3;
+  margin: 0 auto;
+
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 40px;
+  width: 60%; /*controls how wide it is */
 
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
@@ -157,7 +181,7 @@ ul {
 .sidebar {
   padding: 16px;
   display: flex;
-  background-color:#f3f3f3;
+  background-color: #f3f3f3;
   flex-direction: column;
   gap: 50px; /*mellemrum mellem de to sidebarer*/
   border-right: 1px solid;
@@ -187,7 +211,6 @@ ul {
 
   background: #ffffff;
   border-radius: 8px;
-  
 
   color: #333;
   cursor: pointer;
@@ -224,8 +247,8 @@ ul {
 }
 /*The text in filter*/
 .filter h3 {
-  font-size: 16px;   /* smaller text */
-  font-weight: 400;  /* normal weight (not bold) */
+  font-size: 16px; /* smaller text */
+  font-weight: 400; /* normal weight (not bold) */
 }
 .datofilter {
   margin-left: 200px;
@@ -327,20 +350,24 @@ ul {
 
 /* Application to create club or event*/
 /* Form overlay */
-#create-club-or-event_box {
-  position: absolute; /* overlay on top of content */
-  top: 120px; /* below the big heading ("Events & Clubs") and top bar */
-  left: 250px; /* width of your sidebar */
-  right: 20px; /* small gap on right */
-  height: calc(100vh - 140px); /* full viewport height minus top margin */
+/*#create-club-or-event_box {
+  height: calc(100vh - 140px);
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 30px;
-  overflow-y: auto; /* allow scrolling if content is tall */
-  z-index: 100; /* on top of everything */
+  overflow-y: auto;
 }
+#create-club-or-event-overlay {
+  position: absolute;
+  inset: 0;               /* covers full page */
+/*z-index: 100;
+  background-color: #ffffff; /* full white background */
+/*padding-left: 250px;    /* keeps sidebar space like your club list */
+/*padding-top: 120px;     /* keeps topbar spacing */
+/* overflow: hidden;
+}*/
 /* Inner content can still scroll*/
 #create-club-or-event_box_content {
   max-width: 100%;
