@@ -30,7 +30,7 @@
     document.getElementById("currentDate").textContent = today.day + "." + today.month + "." + today.year;
     }
 
-    setInterval(updateDate, 1000);
+    setInterval(updateDate, 100);
 
 /* Dynamiske datoer i selve kalenderen */
 
