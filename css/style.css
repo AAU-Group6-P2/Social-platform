@@ -273,19 +273,17 @@ ul {
   grid-template-columns: repeat(7, 1fr);
 }
 
-.weekdays {
+.weekdays { /* kunne vruge en opdatering */
   background-color: lightblue;
-  border-radius: 5px;
-}
-
-.daynumbers {
-  min-height: 2em; /* giver lidt ldoret plads, nogrte med ca. 2 gange teksten størrelse*/
+  border-radius: 10px;
+  
 }
 
 .header {
-  background: gray;
   grid-area: header;
 }
+
+/* hvis vi sletter .header, bliver det sært*/
 
 .timeslotscontainer {
   background-color: lightgray;

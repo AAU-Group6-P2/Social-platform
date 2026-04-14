@@ -69,7 +69,6 @@
           </div>
           <div style="display:flex; justify-content: start; align-items: center;">
               <h2 id="currentDate"></h2>
-              <script src="JS/core/calendar.js"></script>
               <div style="width: 300px;" class="datofilter"></div>
           </div>
           <div class="calendarcontainer">
@@ -83,9 +82,11 @@
                 <li>Lørdag <span id="day6"></span></li>
                 <li>Søndag <span id="day7"></span></li>
               </ul>
-              <button onclick="previousWeek">←</button>
-              <button onclick="nextWeek">→</button>
+              <button id="previousWeek">←</button>
+              <button id="nextWeek">→</button>
             </div>
+
+          <script src="JS/core/calendar.js"></script>
 
             <div class="timeslotscontainer">
               <ul class="timeslots">

@@ -41,12 +41,12 @@
 
 
         let currentDay = today.getDay(); //Finder ud af hvilken dag nuværende dag er
-            if (day === 0){ 
-                day = 7 //hvis dagen er søndag, sættes søndag til 7
+            if (currentDay === 0){ 
+                currentDay = 7 //hvis dagen er søndag, sættes søndag til 7
             }
 
         const monday = new Date(today); //vi laver mandag ud fra dagsdato
-        monday.setDate(today.getDate() - day - 1 + weekOffset * 7);
+        monday.setDate(today.getDate() - (currentDay - 1) + weekOffset * 7);
         //tager dagsdato og trækker differencen fra dagsdato til mandag fra
         //hvis bruger vil frem i kalenderen, tælles weekOffset op, og der lægges 7 dage til alt efter hvor mange uger frem, user vil
 
@@ -55,7 +55,7 @@
             dayInWeek.setDate(monday.getDate() + i); //henter mandags dato, og lægger dage til, som vi er fra mandag, for at få den specifikke ugedags dato
             //så hvis mandag er d. 14. og vi laver tirsdag, så lægges 1 til datoen, som vi tog udgangspunkt i.
 
-            document.getElementById("day" + (i+1)).textContent = dayInWeek.getDate() + "/" (dayInWeek.getMonth() + 1);
+            document.getElementById("day" + (i+1)).textContent = dayInWeek.getDate() + "/" + (dayInWeek.getMonth() + 1);
             //Her lægges værdierne/datoeren over til tilsvarende id'er; day1, day2, osv.
         }
 
@@ -72,3 +72,6 @@ function previousWeek() {
 }
 
 renderWeek();
+
+document.getElementById("previousWeek").addEventListener("click", previousWeek);
+document.getElementById("nextWeek").addEventListener("click", nextWeek);
