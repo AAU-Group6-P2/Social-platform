@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const db = require('./db');
 
-const filePath = path.join(__dirname, '../data/event_card.json');
+const filePath = path.join(__dirname, 'data', 'event_card.json');
 
 let events;
 
@@ -36,9 +36,7 @@ events.forEach((event) => {
   ], (err) => {
     completed++;
 
-    if (err) {
-      console.error(`Event insert error ID ${event.eventid}:`, err.message);
-    }
+    if (err) console.error(err.message);
 
     if (completed === events.length) {
       console.log("All events imported");

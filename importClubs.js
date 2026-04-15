@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const db = require('./db');
 
-const filePath = path.join(__dirname, '../data/club_card.json');
+const filePath = path.join(__dirname, 'data', 'club_card.json');
 
 let clubs;
 
@@ -32,9 +32,7 @@ clubs.forEach((club) => {
   ], (err) => {
     completed++;
 
-    if (err) {
-      console.error("Club insert error:", err.message);
-    }
+    if (err) console.error(err.message);
 
     if (completed === clubs.length) {
       console.log("All clubs imported");
