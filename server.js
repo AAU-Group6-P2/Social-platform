@@ -30,12 +30,12 @@ app.get('/clubs', (req, res) => {
       });
     }
 
-    console.log("CLUBS RESULT:", result);
     res.json(result);
   });
 });
 
-const PORT = process.env.PORT || 3000;
+// Fix for Railway
+const PORT = process.env.PORT;
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log('server running on ' + PORT);
