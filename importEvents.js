@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const db = require('./db');
+const db = require('../db');
 
 // Path to JSON file
 const filePath = path.join(__dirname, '../data/event_card.json');
