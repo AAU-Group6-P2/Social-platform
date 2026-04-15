@@ -21,7 +21,7 @@
   "homepage": "https://github.com/Ida166/Social-platform#readme",
   "dependencies": {
     "cors": "^2.8.6",
-    "express": "^5.2.1",
+    "express": "^4.18.2",
     "mysql2": "^3.22.0"
   }
 }
