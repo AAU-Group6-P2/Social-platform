@@ -6,6 +6,12 @@ const events = [
     date: "2026-04-15",
     start: "07:00",
     end: "10:00"
+    },
+    {
+    title: "Event D",
+    date: "2026-04-25",
+    start: "07:00",
+    end: "10:00"
     }
 
 ]
