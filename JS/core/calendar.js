@@ -2,7 +2,7 @@
 
 const events = [
     {
-    title: "Event A",
+    title: "Event C",
     date: "2026-04-15",
     start: "07:00",
     end: "10:00"
@@ -22,7 +22,7 @@ const events = [
 
 
     function renderEvents(monday){
-        const container = document.querySelector(".eventContainer"); //finder .eventContainer i html
+        const container = document.querySelector(".eventcontainer"); //finder .eventContainer i html
         container.innerHTML = ""; //tømmer indholdet fx hvis brugeren skifter til ny uge, så gamle events ikke fremgår
 
         events.forEach(event => { //alle events brugeren har angivet køres igennem og får dato ift. kalenderen
