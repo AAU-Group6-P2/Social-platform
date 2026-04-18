@@ -2,9 +2,8 @@
   "name": "social-platform",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.html",
   "scripts": {
-    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -14,15 +13,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/Ida166/Social-platform/issues"
   },
   "homepage": "https://github.com/Ida166/Social-platform#readme",
   "dependencies": {
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^4.18.2",
-    "mysql2": "^3.22.0"
+    "@supabase/supabase-js": "^2.103.3"
   }
 }
