@@ -126,44 +126,44 @@ function initDashboard() {
         );
 
       container.innerHTML = `
-    <div class="content-area">
-        <h1>Events & clubs - Informationssite - ${club.name}</h1>
+        <div class="content-area">
+            <h1>Events & clubs - Informationssite - ${club.name}</h1>
 
-        <div class="white-box">
-            <div class="hero">
-                <img src="${club.image}" alt="${club.name}">
-            </div>
-
-            <div class="description">
-                <p><strong>Join us!</strong><br>
-                ${club.description}</p>
-            </div>
-
-            <div class="info-section">
-                <div class="info-card">
-                    <h3>Date:</h3>
-                    <p>${clubEvents.length > 0 ? clubEvents[0].date : 'Information follows'}</p>
-                    <h3>Time:</h3>
-                    <p>${clubEvents.length > 0 ? clubEvents[0].time : 'Information follows'}</p>
-                    <h3>Place:</h3>
-                    <p>${clubEvents.length > 0 ? clubEvents[0].location : 'Information follows'}</p>
+            <div class="white-box">
+                <div class="hero">
+                    <img src="${club.image}" alt="${club.name}">
                 </div>
 
-                <div class="info-card">
-                    <h3>Current members:</h3>
-                    <p>${club.memberCount || 'TBA'}</p>
-                    <h3>Contact info:</h3>
-                    <p>${club.contactEmail || 'No email provided'}</p>
-                    <p>${club.phone || ''}</p>
+                <div class="description">
+                    <p><strong>Join us!</strong><br>
+                    ${club.description}</p>
                 </div>
 
-                <button class="join-btn">Join us</button>
-            </div>
+                <div class="info-section">
+                    <div class="info-card">
+                        <h3>Date:</h3>
+                        <p>${clubEvents.length > 0 ? clubEvents[0].date : 'Information follows'}</p>
+                        <h3>Time:</h3>
+                        <p>${clubEvents.length > 0 ? clubEvents[0].time : 'Information follows'}</p>
+                        <h3>Place:</h3>
+                        <p>${clubEvents.length > 0 ? clubEvents[0].location : 'Information follows'}</p>
+                    </div>
 
-            <button id="close-event-page" class="back-btn">Go Back</button>
+                    <div class="info-card">
+                        <h3>Current members:</h3>
+                        <p>${club.memberCount || 'TBA'}</p>
+                        <h3>Contact info:</h3>
+                        <p>${club.contactEmail || 'No email provided'}</p>
+                        <p>${club.phone || ''}</p>
+                    </div>
+
+                    <button class="join-btn">Join us</button>
+                </div>
+
+                <button id="close-event-page" class="back-btn">Go Back</button>
+            </div>
         </div>
-    </div>
-`;
+    `;
        
         // close the club page
         const closeClubPage = container.querySelector("#close-event-page");
@@ -203,14 +203,20 @@ function initDashboard() {
             clubListBox.classList.remove("hidden");
 
             /*Close box when span is clicked */
-            const closeClubList = clubListBox.querySelector("#close-club-list");
-            if(closeClubList){
-                closeClubList.addEventListener("click", () => {
+            document.addEventListener("click", (e) => {
+                if (e.target.closest("#close-club-list")) {
+                    const clubListBox = document.getElementById("club-list-box");
+
                     clubListBox.classList.add("hidden");
-                    clubListBox.innerHTML = ""; //reset content of the page 
-                    clubsLoaded = false; //only loads clubs when modal is opened.
-                });
-            }
+                    /*Clearing the page */
+                    const clubContent = document.getElementById("club-content");
+                    if (clubContent) {
+                        clubContent.innerHTML = "";
+                    }
+
+                    clubsLoaded = false;
+                }
+            });
         });
 
     }
