@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/Ida166/Social-platform#readme",
   "dependencies": {
-    "@supabase/supabase-js": "^2.103.3"
+    "@supabase/supabase-js": "^2.103.3",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "mysql2": "^3.22.2"
   }
 }
