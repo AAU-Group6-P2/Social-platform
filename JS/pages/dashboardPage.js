@@ -13,14 +13,35 @@ import { supabase } from '../../Supabase.js'
     import { getEvent } from "./clubServices.js";
 
  
+
+// Club owner buttton - Button to change between roles  
+const btnClubOwner = document.getElementById("goDashboardClubOwner");  
+
+// Redirect til dashboard og gem rolle i sessionStorage
+btnClubOwner.addEventListener("click", () => {
+    sessionStorage.setItem("role", "club_owner"); // match auth.js naming
+    window.location.href = "dashboard.html";
+
+});
+
+//Student button - Button to change between roles 
+const btnStudent = document.getElementById("goDashboardStudent");
+
+btnStudent.addEventListener("click", () => {
+    sessionStorage.setItem("role", "student"); //Gemmer rollen "student" i browserens sessionStorage
+    window.location.href = "dashboard.html";
+});
+
+
+//Udkommenteret da vi lige nu ikke ændrer styling baseret på rollen ved at sætte body's class.
 // Styling baseret på role
-function applyRoleClass() { //tilføjer body.classList.add("club_owner") eller body.classList.add("admin")
-    const role = getRole();
-    document.body.classList.remove("user", "club_owner", "admin"); //Sikrer at der ikke ligger gemte roller tilbage
-    if (role){
-        document.body.classList.add(role); //Tilføj den nuværende brugers rolle som en CSS-klasse på hele siden
-    } 
-}
+// function applyRoleClass() { //tilføjer body.classList.add("club_owner") eller body.classList.add("admin")
+//     const role = getRole();
+//     document.body.classList.remove("student", "club_owner", "admin"); //Sikrer at der ikke ligger gemte roller tilbage
+//     if (role){
+//         document.body.classList.add(role); //Tilføj den nuværende brugers rolle som en CSS-klasse på hele siden
+//     } 
+// }
 
 // Permission-baseret UI
 function applyPermissions() {
@@ -36,21 +57,8 @@ function applyPermissions() {
 }
 
 function initDashboard() {
-    applyRoleClass();       // Visuelle ændringer baseret på rolle. <body>'s class sættes til at være en af rollerne
+    //applyRoleClass();       // Visuelle ændringer baseret på rolle. <body>'s class sættes til at være en af rollerne
     applyPermissions();     // Fjern knapper som brugeren ikke må se
-
-    const role = getRole(); // læser fra sessionStorage
-    const roleText = document.getElementById("roleText");
-    roleText.textContent = role
-    ? `You are logged in as ${role}`
-    : `No role selected`
-
-    /* Redirect til index.html(login page) og logger brugeren ud */
-    const logOut = document.getElementById("logOut"); //hent tilbagekanppen
-        logOut.addEventListener("click", () => { //lyt efter om der bliver klikket
-            window.location.href = "index.html";
-        });
-
    
     /*oppening and closing of the application for club or events box */
     const apply_create_club_or_event = document.getElementById("createClubOrEvent");

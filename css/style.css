@@ -96,6 +96,9 @@
 
 /* Dashboard kalender */
 .page-title {
+  display: flex;
+  align-items: center;      /* keeps them vertically aligned */
+  justify-content: space-between; /* pushes items apart */  
 }
 
 .page-title h1 {
