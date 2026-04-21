@@ -1,6 +1,6 @@
-const express = require('express')
-const cors = require('cors')
-const db = require('./db')
+import express from 'express'
+import cors from 'cors'
+import db from './db.js'
 
 const app = express()
 
@@ -12,44 +12,38 @@ app.get('/', (req, res) => {
   res.send("Backend is running")
 })
 
-// get all events
+// GET all events
 app.get('/events', (req, res) => {
 
-  const sql = "SELECT * FROM events"
-
-  db.query(sql, (err, results) => {
+  db.query('SELECT * FROM events', (err, result) => {
 
     if (err) {
-      console.error("Database error:", err)
-      return res.status(500).json({ error: "Database error" })
+      console.error(err)
+      return res.status(500).json({ error: "database error" })
     }
 
-    res.json(results)
+    res.json(result)
 
   })
 
 })
 
-// get all clubs
+// GET all clubs
 app.get('/clubs', (req, res) => {
 
-  const sql = "SELECT * FROM clubs"
-
-  db.query(sql, (err, results) => {
+  db.query('SELECT * FROM clubs', (err, result) => {
 
     if (err) {
-      console.error("Database error:", err)
-      return res.status(500).json({ error: "Database error" })
+      console.error(err)
+      return res.status(500).json({ error: "database error" })
     }
 
-    res.json(results)
+    res.json(result)
 
   })
 
 })
 
-const PORT = 3000
-
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`)
+app.listen(3000, () => {
+  console.log("Server running on http://localhost:3000")
 })
