@@ -8,19 +8,19 @@
     <title>MapOut - Dashboard</title>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/roles/user.css" />
-    <link rel="stylesheet" href="css/roles/club_owner.css" />
     <link rel="stylesheet" href="css/roles/admin.css" />
-    <link rel="stylesheet" href="css/commponents/club_card.css" />
+    <link rel="stylesheet" href="css/commponents/club_card.css" /> 
+    <link rel="stylesheet" href="css/roles/club_owner.css" />
     <link rel="stylesheet" href="css/commponents/event_card.css" />
+   
+    
   </head>
   <body>
-    <p id="roleText"></p>
 
     <!--Test for visning af rollespecifikke elementer-->
     <div>
         <button class="club-btn-create-event" data-permission="create_event">Create Event</button>
         <button class="admin-btn-delete-event" data-permission="delete_event">Delete Event</button>
-        <button class="role-button" id="logOut">Log Out</button>
 
         <!-- Apply to create club or event box -->
         <button
@@ -63,6 +63,12 @@
           <h1>
             Events & clubs | <span class="club-list-link" id="clubListLink"> Club List</span>
           </h1>
+          <button class="role-button" id="goDashboardClubOwner" class="hidden" data-permission="club_owner_role">
+            Club Owner
+          </button>
+          <button class="role-button" id="goDashboardStudent" class="hidden"  data-permission="student_role">
+            Student
+          </button>
         </div>
           <div class="filter">
             <h3>Filters</h3>
