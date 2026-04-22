@@ -1,29 +1,13 @@
-import { supabase } from '../../Supabase.js'
-
-/*Load in the clubs */
+/* Load clubs from backend */
 export async function getClubs() {
-    const { data, error } = await supabase
-        .from('clubs')
-        .select('*')
-
-    if (error) {
-        console.error(error)
-        return []
-    }
-
-    return data
+    const response = await fetch("http://localhost:3000/clubs");
+    const data = await response.json();
+    return data;
 }
 
-/*Load in the events */
+/* Load events from backend */
 export async function getEvent() {
-    const { data, error } = await supabase
-        .from('events')
-        .select('*')
-
-    if (error) {
-        console.error(error)
-        return []
-    }
-
-    return data
+    const response = await fetch("http://localhost:3000/events");
+    const data = await response.json();
+    return data;
 }

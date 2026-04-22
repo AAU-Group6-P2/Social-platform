@@ -5,8 +5,6 @@
 import { hasPermission } from "../core/rbac.js"; //Henter funktionen hasPermission fra rbac.js
 import { getRole } from "../core/auth.js";
 
-/*Importer data fra database */
-import { supabase } from '../../Supabase.js'
 
 /*Import the club list */
     import { getClubs } from "./clubServices.js";
