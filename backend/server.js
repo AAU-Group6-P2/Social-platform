@@ -9,10 +9,12 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+/* this makes dashboard.html work without Live Server */
+app.use(express.static(path.join(__dirname, "..")));
+
 app.use(express.json());
 
-/* ---------------- SUPABASE ROUTES ---------------- */
-
+/* This is supabase routes*/
 app.get("/clubs", async (req, res) => {
     const { data, error } = await supabase
         .from("clubs")
@@ -33,12 +35,7 @@ app.get("/events", async (req, res) => {
     res.json(data);
 });
 
-/* ---------------- SERVE FRONTEND FILES ---------------- */
-
-/* this makes dashboard.html work without Live Server */
-app.use(express.static(path.join(__dirname, "..")));
-
-/* START SERVER */
+/* Start server */
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
 });
