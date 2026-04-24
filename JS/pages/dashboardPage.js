@@ -76,6 +76,17 @@ function initDashboard() {
 
             // Vis popup
             apply_create_club_or_event_box.classList.remove("hidden");
+            const eventCheckbox = document.getElementById('checkBoxEvent');
+            const filterBox = document.getElementById('event-filter-box');
+    if (eventCheckbox && filterBox) {
+        eventCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            filterBox.style.display = 'block'; // Vis boksen hvis der er flueben
+        } else {
+            filterBox.style.display = 'none';  // Skjul den hvis fluebenet fjernes
+        }
+    });
+}
 
             // Luk-knap (skal bindes EFTER HTML er indsat)
             const closeBtn = document.getElementById("close-page");

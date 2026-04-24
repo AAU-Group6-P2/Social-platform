@@ -20,6 +20,16 @@
       </label>
     </div>
 
+    <div id="event-filter-box" style="display: none; margin: 10px 0; padding: 15px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px;">
+  <label for="eventScope" style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">
+    Hvem skal kunne se dette event?
+  </label>
+  <select id="eventScope" name="eventScope" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; background-color: white; cursor: pointer;">
+    <option value="global">Globalt (Alle kan se det)</option>
+    <option value="club">Kun for klubbens medlemmer</option>
+  </select>
+</div>
+
     <div class="form-row">
       <input type="text" placeholder="Club/Event Name" required />
       <input type="text" placeholder="Category" required />
