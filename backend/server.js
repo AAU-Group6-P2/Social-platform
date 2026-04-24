@@ -15,16 +15,19 @@ app.use(express.static(path.join(__dirname, "..")));
 app.use(express.json());
 
 /* This is supabase routes*/
+/*Get club info */
 app.get("/clubs", async (req, res) => {
     const { data, error } = await supabase
         .from("clubs")
-        .select("*");
+        .select("*")
+        .order("name", { ascending: true });
 
     if (error) return res.status(500).json(error);
 
     res.json(data);
 });
 
+/*Get event info */
 app.get("/events", async (req, res) => {
     const { data, error } = await supabase
         .from("events")
@@ -34,6 +37,45 @@ app.get("/events", async (req, res) => {
 
     res.json(data);
 });
+
+/*Get the number of current joined members */
+app.get("/clubs/:id", async (req, res) => {
+    const clubId = req.params.id;
+
+    const { data, error } = await supabase 
+        .from("clubs")
+        .select("*")
+        .eq("id", clubId)
+        .single();
+
+    if (error) {
+        return res.status(500).json(error);
+    }
+
+    res.json(data)
+});
+
+/* Update the database with new number of members in the club*/
+app.post("/clubs/:id/joined", async (req, res) => {
+    const clubId = req.params.id;
+
+    const { data } = await supabase
+        .from("clubs")
+        .select("joined")
+        .eq("id", clubId)
+        .single();
+    const newCount = (data.joined || 0) + 1;
+
+    await supabase  
+        .from("clubs")
+        .update({ joined: newCount })
+        .eq("id", clubId);
+
+    res.json({ joined: newCount});
+
+});
+
+
 
 /* Start server */
 app.listen(3000, () => {
