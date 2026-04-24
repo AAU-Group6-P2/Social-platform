@@ -11,9 +11,10 @@ import { getRole } from "../core/auth.js";
 /*Import the club list */
     import { getClubs } from "./clubServices.js";
     import { getEvents } from "./clubServices.js";
+    import { getJoinCount } from "./clubServices.js";
+    import { joinClub } from "./clubServices.js";
 
- 
-console.log("API JS loaded");
+    
 // Club owner buttton - Button to change between roles  
 const btnClubOwner = document.getElementById("goDashboardClubOwner");  
 
@@ -78,15 +79,15 @@ function initDashboard() {
             apply_create_club_or_event_box.classList.remove("hidden");
             const eventCheckbox = document.getElementById('checkBoxEvent');
             const filterBox = document.getElementById('event-filter-box');
-    if (eventCheckbox && filterBox) {
-        eventCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-            filterBox.style.display = 'block'; // Vis boksen hvis der er flueben
-        } else {
-            filterBox.style.display = 'none';  // Skjul den hvis fluebenet fjernes
+            if (eventCheckbox && filterBox) {
+                eventCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    filterBox.style.display = 'block'; // Vis boksen hvis der er flueben
+                } else {
+                    filterBox.style.display = 'none';  // Skjul den hvis fluebenet fjernes
+                }
+            });
         }
-    });
-}
 
             // Luk-knap (skal bindes EFTER HTML er indsat)
             const closeBtn = document.getElementById("close-page");
@@ -197,7 +198,19 @@ function initDashboard() {
             </div>
         </div>
     `;
+
+        //function to import club member count and join a club
+        const count = await getJoinCount(clubId);
+
+        const joinBtn = document.querySelector(".join-btn");
+        joinBtn.textContent = `Join us (${count.joined} joined)`;
+
+        joinBtn.addEventListener("click", async () => {
+            const result = await joinClub(clubId);
+            joinBtn.textContent = `Join us (${result.joined} joined)`;
+        });
        
+
         // close the club page
         const closeClubPage = container.querySelector("#close-event-page");
 
