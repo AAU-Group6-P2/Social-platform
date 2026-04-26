@@ -75,6 +75,8 @@
     padding: 40px;
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
 }
 
 .user-initials {
@@ -152,4 +154,50 @@
     font-weight: bold;
     height: 50px; 
     border-radius: 4px;
+}
+
+* Event section */
+.events-section {
+    margin: 30px 0;
+    /*width: 100%;*/
+}
+
+.events-section h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/*Individual event card */
+.event-card {
+    background: #ffffff;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Event title */
+.event-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #0f6cbf; /* reuse your blue */
+}
+
+/* Event details */
+.event-card p {
+    font-size: 14px;
+    margin: 4px 0;
+    color: #333;
+}
+
+.event-card strong {
+    color: #555;
 }

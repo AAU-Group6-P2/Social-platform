@@ -159,6 +159,18 @@ function initDashboard() {
             e =>  String(e.clubId) === String(clubId) && e.isPublished === true
         );
 
+        //event HTML - 161
+        const eventsHTML = clubEvents.length > 0
+            ? clubEvents.map(event => `
+                <div class="event-card">
+                    <h3>${event.title || "Event"}</h3>
+                    <p><strong>Date:</strong> ${event.date}</p>
+                    <p><strong>Time:</strong> ${event.time}</p>
+                    <p><strong>Place:</strong> ${event.location}</p>
+                </div>
+            `).join("")
+            : "<p>No events available yet</p>";
+
       container.innerHTML = `
         <div class="content-area">
             <h1>Events & clubs - Informationssite - ${club.name}</h1>
@@ -193,6 +205,11 @@ function initDashboard() {
 
                     <button class="join-btn">Join us</button>
                 </div>
+
+                <div class="event-section">
+                         <h2>Events</h2>
+                        ${eventsHTML}
+                    </div>
 
                 <button id="close-event-page" class="back-btn">Go Back</button>
             </div>
