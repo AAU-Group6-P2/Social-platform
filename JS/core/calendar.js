@@ -165,6 +165,10 @@ function renderTimeslots(){
             //Her lægges værdierne/datoeren over til tilsvarende id'er; day1, day2, osv.
         }
 
+    updateCalendarTimeRange(monday);
+    renderTimeslots();
+    renderEvents(monday);
+
     }
 
 function nextWeek() {
