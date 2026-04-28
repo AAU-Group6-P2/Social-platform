@@ -60,13 +60,13 @@ app.post("/events", async (req, res) => {
     const { data, error } = await supabase
         .from("events")
         .insert([{
-            name,
+            title: name, //this maps frontend "name" to database "title" coulmn
             date,
             time,
             clubId: Number(clubId),
             location,
             description,
-            practicalInformation,
+            practicalInfo,
             isPublished: Boolean(isPublished)
         }])
         .select()
