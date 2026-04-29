@@ -37,7 +37,10 @@ function updateCalendarTimeRange(monday){
             const { start, end } = splitTimeRange(event.time);
 
             const [startHour] = start.split(":").map(Number);
-            const [endHour] = end.split(":").map(Number);
+            let [endHour] = end.split(":").map(Number); 
+            if (end === "00:00") { //Changes end to 24:00 if it ends at 00:00 because gets translated to 0 so the beginning of the day
+                endHour = 24;
+            }
 
             if (startHour < earliestHour){
                 earliestHour = startHour;
@@ -73,18 +76,16 @@ function renderTimeslots(){
 
     function timeToRow(timeString) {
         const [hour, minute] = timeString.split(":").map(Number); // vi splitter timer fra minutter
-        return (hour - calendarStartHour) * 4 + minute / 15+1; // der går 4 kvarter pr. time, og så er der de løse minutter.
+        return (hour - calendarStartHour) * 4 + Math.floor(minute / 15) + 1; // der går 4 kvarter pr. time, og så er der de løse minutter der løses med math.floor.
                                 //så fordeler vi det hele på kvarter, fordi vores row grid er inddelt efter det.
     }
-
-
 
     function renderEvents(monday){
         const container = document.querySelector(".eventcontainer"); //finder .eventContainer i html
         container.innerHTML = ""; //tømmer indholdet fx hvis brugeren skifter til ny uge, så gamle events ikke fremgår
 
         events.forEach(event => { //alle events brugeren har angivet køres igennem og får dato ift. kalenderen
-            const eventDate = new Date(event.date);
+            const eventDate = new Date(event.date + "T00:00:00"); //det to local timezone
 
             const diffFromMonday = Math.floor((eventDate - monday)/(1000*60*60*24)); //vi finder differencen fra mandag, fordi Date også tager tiden med, tager vi Math.floor, 
             //så vi får en hel og ikke halve dage. Ikke brugbart til at finde dag i kolonnerne
@@ -96,7 +97,11 @@ function renderTimeslots(){
                 element.textContent = event.title;              //som får titlen bruger har angivet
 
                 element.style.gridColumn = diffFromMonday + 1;   //diffFromMonday starter fra 0, imen mandag i kolonner starter på 1, så derfor +1
-                const {start, end } = splitTimeRange(event.time);
+                let {start, end } = splitTimeRange(event.time);
+                //Treat midnigt as 24:00
+                if (end === "00:00") {
+                    end = "24:00";
+                }
                 element.style.gridRow = timeToRow(start) + " / " + timeToRow(end); //starter fra mængde kvarter vi er inde i døgnet, og strækker sig til slut - igen antal kvarter inde i døgnet.
                 //i css er syntaks gridrow = start /end.
                 container.appendChild(element); //og så tilføjer vi til sidst 
@@ -152,6 +157,7 @@ function renderTimeslots(){
             }
 
         const monday = new Date(today); //vi laver mandag ud fra dagsdato
+        monday.setHours(0, 0, 0, 0); //normalize monday to midnight not the current time when loadning
         monday.setDate(today.getDate() - (currentDay - 1) + weekOffset * 7);
         //tager dagsdato og trækker differencen fra dagsdato til mandag fra
         //hvis bruger vil frem i kalenderen, tælles weekOffset op, og der lægges 7 dage til alt efter hvor mange uger frem, user vil
