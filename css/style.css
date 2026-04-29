@@ -306,7 +306,7 @@ ul {
   width: 50px;
   height: 40px;
   border-radius: 20%;
-  border: ;
+  border: 0;
   background: #f0f0f0;
   align-self: center;
   justify-self: center;
@@ -320,8 +320,8 @@ ul {
 #previousWeek{
   position: absolute;
   left: -60px;
-  top: 50%
-  transform: translateY(-50%)
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 #nextWeek {
