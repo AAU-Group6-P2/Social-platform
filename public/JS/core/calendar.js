@@ -12,7 +12,7 @@ async function loadEventsFromDB() {
     }
 }
 
-/*Function that thakes the time fx 16:00-18:00 and split it into start and end */
+/*Function that takes the time fx 16:00-18:00 and split it into start and end */
 function splitTimeRange(timeRange = "") {
     const [start = "00:00", end = "00:00"] = timeRange.split("-");
     return { start, end };

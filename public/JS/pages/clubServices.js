@@ -26,6 +26,7 @@ export async function joinClub(clubId) {
 /*Sends request to backend to create a new event */
 export async function createEvent(eventData) {
     const res = await fetch("/events", {
+        
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -33,11 +34,10 @@ export async function createEvent(eventData) {
         body: JSON.stringify(eventData)
     });
 
-    const data = await res.json();
-
-    if (!res.ok) {
-        throw new Error(data.message || data.details || "Event could not be saved");
-    }
-
+    const data = await res.json(); 
+    if (!res.ok) { 
+        throw new Error(data.message || data.details || "Event could not be saved"); 
+    } 
+    
     return data;
 }

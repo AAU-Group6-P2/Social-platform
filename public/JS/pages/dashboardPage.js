@@ -1,7 +1,5 @@
 // Hent rolle fra sessionStorage
-// Import RBAC
-import { hasPermission } from "../core/rbac.js"; //Henter funktionen hasPermission fra rbac.js
-import { getRole } from "../core/auth.js";
+
 
 /*Importer data fra database */
 // import { supabase } from '../../Supabase.js'
@@ -13,9 +11,12 @@ import { getRole } from "../core/auth.js";
     import { getJoinCount } from "./clubServices.js";
     import { joinClub } from "./clubServices.js";
 
-    
 // Club owner buttton - Button to change between roles  
 const btnClubOwner = document.getElementById("goDashboardClubOwner");  
+
+setTimeout(async () => {
+    console.log(await fetch("/me", { credentials: "include" }).then(r => r.json()));
+}, 1000);
 
 // Redirect til dashboard og gem rolle i sessionStorage
 // btnClubOwner.addEventListener("click", () => {
@@ -43,18 +44,6 @@ const btnStudent = document.getElementById("goDashboardStudent");
 //     } 
 // }
 
-// Permission-baseret UI
-function applyPermissions() {
-    const elements = document.querySelectorAll("[data-permission]"); //finder alle HTML-elementer som har attributten data-permission. (en knap kan have det som attribut: <button data-permission="create_event">Create Event</button>)
-
-    elements.forEach(element => {
-        const permission = element.dataset.permission; //permission-værdien hentes(dataset læser data-atributter). I eksemplet med knappen læses der "create_event"
-
-        if (!hasPermission(permission)) { //tager en permission-string det kunne være "create_event" og returnerer true eller false
-            element.remove(); //Hvis brugeren ikke har permission → fjernes elementet modsat hvis de har forbliver den synlig
-        }
-    });
-}
 
 const LOCAL_EVENTS_KEY = "mapout_local_events";
 
@@ -70,26 +59,21 @@ function readLocalEvents() {
     }
 }
 
-function createLocalEvent(eventData) {
-    const existingEvents = readLocalEvents();
-    const newEvent = {
-        id: Date.now(),
-        ...eventData
-    };
-    existingEvents.push(newEvent);
-    localStorage.setItem(LOCAL_EVENTS_KEY, JSON.stringify(existingEvents));
-    return newEvent;
-}
-
 function initDashboard() {
     //applyRoleClass();       // Visuelle ændringer baseret på rolle. <body>'s class sættes til at være en af rollerne
-    applyPermissions();     // Fjern knapper som brugeren ikke må se
+        // Fjern knapper som brugeren ikke må se
 
     //Redirect to log in page 
     const logOut = document.getElementById("logOut");
+
     if (logOut) {
-        logOut.addEventListener("click", () => {
-            window.location.href = "login.html";
+        logOut.addEventListener("click", async () => {
+            await fetch("/logout", {
+                method: "POST",
+                credentials: "include"
+            });
+
+            window.location.href = "/";
         });
     }
 
@@ -104,7 +88,7 @@ function initDashboard() {
         apply_create_club_or_event.addEventListener("click", async () => {
 
             // Hent HTML fra separat fil
-            const response = await fetch("components/application_club-event_form.html");
+            const response = await fetch("/student/application_club-event_form.html");
             const html = await response.text();
 
             // Indsæt HTML i container
@@ -137,9 +121,8 @@ function initDashboard() {
 
     if (createEventButton && eventPageBox) {
         createEventButton.addEventListener("click", async () => {
-            if (!hasPermission("create_event")) return;
 
-            const response = await fetch("components/event_template.html");
+            const response = await fetch("/owner/event_template");
             const html = await response.text();
 
             eventPageBox.innerHTML = html;
@@ -185,7 +168,6 @@ function initDashboard() {
                             submitButton.disabled = true;
                         }
 
-                        createLocalEvent(payload);
                         await createEvent(payload);
 
                         if (statusMessage) {
@@ -338,7 +320,7 @@ function initDashboard() {
 
         if (closeClubPage) {
             closeClubPage.addEventListener("click", async () => {
-                const response = await fetch("components/club_list.html");
+                const response = await fetch("/components/club_list.html");
                 const html = await response.text();
 
                 container.innerHTML = html;
@@ -358,7 +340,7 @@ function initDashboard() {
         const clubListBox = document.getElementById("club-list-box"); // The box where the clubs will be shown
 
             // Hent HTML fra seperat fil
-            const response = await fetch("components/club_list.html");
+            const response = await fetch("/components/club_list.html");
             const html = await response.text();
 
             //Indsæt HTML i container
