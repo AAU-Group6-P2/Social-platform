@@ -27,7 +27,8 @@ export const roles = {
         "create_event",
         "edit_own_event",
         "send_notifications",
-        "student_role"
+        "student_role",
+        "my_club"
     ],
 };
 

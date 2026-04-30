@@ -77,6 +77,22 @@ app.post("/events", async (req, res) => {
     res.status(201).json(data);
 });
 
+/* Create a new club */
+app.post("/clubs", async (req, res) => {
+    const { name, image, description, memberCount, contactEmail, phone } = req.body;
+
+    if (!name) return res.status(400).json({ error: "Club name is required." });
+
+    const { data, error } = await supabase
+        .from("clubs")
+        .insert([{ name, image: image || "", description: description || "", memberCount: memberCount || 0, contactEmail: contactEmail || "", phone: phone || "", joined: 0 }])
+        .select()
+        .single();
+
+    if (error) return res.status(500).json(error);
+    res.status(201).json(data);
+});
+
 /*Get the number of current joined members */
 app.get("/clubs/:id", async (req, res) => {
     const clubId = req.params.id;
@@ -115,6 +131,38 @@ app.post("/clubs/:id/joined", async (req, res) => {
 });
 
 
+
+/* Update club contact info */
+app.patch("/clubs/:id", async (req, res) => {
+    const clubId = req.params.id;
+    const { contactEmail, phone } = req.body;
+
+    const { data, error } = await supabase
+        .from("clubs")
+        .update({ contactEmail, phone })
+        .eq("id", clubId)
+        .select()
+        .single();
+
+    if (error) return res.status(500).json(error);
+    res.json(data);
+});
+
+/* Update event info (date, time, location) */
+app.patch("/events/:id", async (req, res) => {
+    const eventId = req.params.id;
+    const { date, time, location } = req.body;
+
+    const { data, error } = await supabase
+        .from("events")
+        .update({ date, time, location })
+        .eq("id", eventId)
+        .select()
+        .single();
+
+    if (error) return res.status(500).json(error);
+    res.json(data);
+});
 
 /* Start server */
 app.listen(3000, () => {

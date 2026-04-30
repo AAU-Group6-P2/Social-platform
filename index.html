@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/roles/club_owner.css" />
     <link rel="stylesheet" href="css/commponents/event_card.css" />
     <link rel="stylesheet" href="css/commponents/event_template.css" />
+    <link rel="stylesheet" href="css/commponents/myclub.css" />
 
     
   </head>
@@ -49,13 +50,9 @@
 
         <!--Club list container -->
         <div id="club-list-box" class="hidden"></div> <!--Find the content in the file components/club_list.html-->
-        <!--Event page container-->
-        <div id="event-page-box" class="hidden"></div>
 
         <div class="page-title">
-          <h1>
-            Events & clubs | <span class="club-list-link" id="clubListLink"> Club List</span>
-          </h1>
+          <h1>Events & Clubs | <span class="club-list-link" id="clubListLink">Club List</span></h1>
           <div class="button-group">
             <!-- Apply to create club or event box -->
             <button class="role-button" id="createClubOrEvent" data-permission="create-club-or-event">
@@ -68,10 +65,19 @@
             <button class="role-button" id="logOut">Log Out</button>
           </div>
         </div>
+        <!-- My Club section - visible to club_owner only -->
+        <div id="my-club-section" class="hidden">
+          <h2 class="my-club-title">My Club</h2>
+          <div id="my-club-card-container"></div>
+        </div>
+
+        <!--Event page container-->
+        <div id="event-page-box" class="hidden"></div>
           <div class="filter">
             <h3>Filters</h3>
           </div>
-          <div style="display:flex; justify-content: start; align-items: center;">
+
+          <div id="date-filter-row">
               <h2 id="currentDate"></h2>
               <div style="width: 300px;" class="datofilter"></div>
           </div>

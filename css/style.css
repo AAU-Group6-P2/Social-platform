@@ -42,16 +42,6 @@
   color: rgb(0, 2, 108);
 }
 
-/* Kun Go Back knappen */
-#close-page {
-  background-color: #2f80ed;
-  color: white;
-}
-
-#close-page:hover {
-  background-color: #1366d6;
-
-}
 
 /* Send Application knappen*/
 .primary-button {
@@ -119,7 +109,7 @@
 .page-title {
   display: flex;
   align-items: center;      /* keeps them vertically aligned */
-  justify-content: space-between; /* pushes items apart */  
+  justify-content: space-between; /* pushes items apart */
 }
 
 .page-title h1 {
@@ -132,15 +122,51 @@
 
 .button-group {
   display: flex;
-  gap: 10px; 
+  gap: 10px;
 }
+
+
 
 .club-list-link {
   cursor: pointer;
+  background-color: #ebeaea;
+  border: 1px solid #cac8c8;
+  border-radius: 5px;
+  padding: 10px 20px;
+  vertical-align: middle;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 .club-list-link:hover {
-  color: rgb(13, 13, 53);
+  background-color: #cac8c8;
+  border-color: #999;
+  color: rgb(0, 2, 108);
+}
+
+#clubListLink {
+  position: relative;
+}
+
+#clubListLink::after {
+  content: "See clubs and join";
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+#clubListLink:hover::after {
+  opacity: 1;
 }
 
 #club-list-box {
@@ -284,6 +310,12 @@ ul {
 }
 .datofilter {
   margin-left: 200px;
+}
+
+#date-filter-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 
@@ -481,30 +513,6 @@ ul {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
-#clubListLink {
-    position: relative;
-}
-
-#clubListLink::after {
-    content: "See clubs and join";
-    position: absolute;
-    bottom: -35px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 12px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-}
-
-#clubListLink:hover::after {
-    opacity: 1;
-}
