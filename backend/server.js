@@ -158,7 +158,56 @@ app.post("/events", async (req, res) => {
     res.status(201).json(data);
 });
 
-/*Get the number of current joined members */
+/* Get current number of joined users for an event */
+app.get("/events/:id/join-count", async (req, res) => {
+    const eventId = req.params.id;
+
+    const { count, error } = await supabase
+        .from("event_joined")
+        .select("*", { count: "exact", head: true}) //count the rows 
+        .eq("event_id", eventId)
+
+    if(error){
+        return res.status(500).json(error);
+    } 
+
+    res.json({ joined: count });
+});
+
+/* Increment joined count for an event */
+app.post("/events/:id/joined", async (req, res) => {
+    const userId = req.session.user?.id;
+    const eventId = req.params.id;
+
+    if(!userId){
+        return  res.status(401).send("Not logged in");
+    }
+
+    const { error } = await supabase
+        .from("event_joined")
+        .insert([
+            {
+                user_id: userId,
+                event_id: eventId
+            }
+        ]);
+
+    //get the updated count of joined
+    const { count, error: countError } = await supabase 
+        .from("event_joined")
+        .select("*", {count: "exact", head: true}) //count the rows
+        .eq("event_id", eventId)
+    
+    if (countError) {
+        return res.status(500).json(countError);
+    }
+
+    res.json({ 
+        joined: count
+    });
+});
+
+/*Get the number of current joined members in a club*/
 app.get("/clubs/:id/join-count", async (req, res) => {
     const clubId = req.params.id;
 
@@ -204,6 +253,10 @@ app.post("/clubs/:id/joined", async (req, res) => {
         .select("*", {count: "exact", head: true}) //count the rows
         .eq("club_id", clubId)
     
+    if (counterror) {
+        return res.status(500).json(countError);
+    }
+
     res.json({ 
         message: "Joined successfully",
         joined: count

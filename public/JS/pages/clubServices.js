@@ -8,6 +8,28 @@ export async function getEvents() {
     return await res.json();
 }
 
+/*Sends request to backend to get the joined count of the given event */
+export async function getEventJoinCount(eventId) {
+    const res = await fetch(`/events/${eventId}/join-count`);
+    return await res.json();
+}
+
+/*Sends request to backend to update the joined count of the given event */
+export async function joinEvent(eventId) {
+    const res = await fetch(`/events/${eventId}/joined`, {
+        method: "POST",
+        credentials: "include"
+    });
+
+    const data = await res.json();
+
+    if(!res.ok){
+        return { error: data.message };
+    }
+
+    return data;
+}
+
 /*Sends request to backend to get the joined count of the given club */
 export async function getJoinCount(clubId) {
     const res = await fetch(`/clubs/${clubId}/join-count`);
