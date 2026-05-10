@@ -101,18 +101,10 @@
   align-items: center; /* vertical centering */
   padding: 40px;
 
-  background-image: url("../assets/images/YOUR-BACKGROUND.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
-
-/* Dashboard kalender */
-/* .page-title {
-  display: flex;
-  align-items: center;      /* keeps them vertically aligned */
-  /*justify-content: space-between; /* pushes items apart */  
-/*} */
 
 .page-title {
   display: flex;
