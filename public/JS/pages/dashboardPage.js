@@ -1,10 +1,10 @@
 /*Import functions */
-    import { getClubs } from "./clubServices.js";
-    import { getEvents } from "./clubServices.js";
-    import { createEvent } from "./clubServices.js";
-    import { getEventJoinCount } from "./clubServices.js";
-    import { getUserRole } from "./clubServices.js";
-    import { setupEventJoinButton } from "./eventJoinButton.js";
+    import { getClubs } from "../services/clubServices.js";
+    import { getEvents } from "../services/clubServices.js";
+    import { createEvent } from "../services/clubServices.js";
+    import { getEventJoinCount } from "../services/clubServices.js";
+    import { getUserRole } from "../services/clubServices.js";
+    import { setupEventJoinButton } from "../components/eventJoinButton.js";
     
     
 

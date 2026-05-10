@@ -1,4 +1,4 @@
-import { getClubs, getUserRole } from "./clubServices.js";
+import { getClubs, getUserRole } from "../services/clubServices.js";
 
 let allClubs = [];
 let role = null;

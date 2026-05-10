@@ -1,6 +1,6 @@
-import { getClubs, getEvents, getEventJoinCount, getJoinCount, getUserRole } from "./clubServices.js";
-import { setupClubJoinButton } from "./clubJoinButton.js";
-import { setupEventJoinButton } from "./eventJoinButton.js";
+import { getClubs, getEvents, getEventJoinCount, getJoinCount, getUserRole } from "../services/clubServices.js";
+import { setupClubJoinButton } from "../components/clubJoinButton.js";
+import { setupEventJoinButton } from "../components/eventJoinButton.js";
 
 const PRESET_COLORS = [
     "#e74c3c", "#e67e22", "#f1c40f", "#2ecc71", "#1abc9c",
