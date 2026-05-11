@@ -1,7 +1,8 @@
 import express from "express";
 import multer from "multer";
 
-import { getClubs, getClubJoinCount, joinClub, leaveClub, createClub, updateClub, uploadClubImage } from "../controllers/clubController.js"
+import { getClubs, getClubJoinCount, joinClub, leaveClub, 
+         createClub, updateClub, uploadClubImage } from "../controllers/clubController.js"
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() })
