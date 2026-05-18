@@ -7,7 +7,7 @@ export const getEvents = async (req, res) => {
         .from("events")
         .select(`
             *,
-            clubs(color)
+            clubs(color, name)
         `);
 
     if (error) return res.status(500).json(error);

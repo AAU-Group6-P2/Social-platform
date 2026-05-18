@@ -373,6 +373,7 @@ function initDashboard() {
             cardDiv.dataset.eventId = event.id;
             if (event.clubs?.color) cardDiv.style.borderLeft = `5px solid ${event.clubs.color}`;
 
+            clone.querySelector(".club-name").textContent = event.clubs?.name || "";
             clone.querySelector(".event-title").textContent = event.title || "Event";
             clone.querySelector(".event-date").textContent = event.date;
             clone.querySelector(".event-time").textContent = event.time;
