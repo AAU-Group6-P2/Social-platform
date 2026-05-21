@@ -5,16 +5,21 @@ function updateClubJoinButton(button, isJoined = false) {
     button.classList.toggle("joined", isJoined);
 }
 
+async function updateMemberCountText(clubId) {
+    const members = await getJoinCount(clubId);
+
+    document.getElementById("club-members-count").textContent = `${members.joined} members`;
+}
+
 export async function setupClubJoinButton(button, clubId) {
     if (!button || !clubId) return;
 
     button.type = "button";
     let isJoined = false;
-    updateClubJoinButton(button, isJoined);
 
     try {
         const countData = await getJoinCount(clubId);
-        isJoined = Boolean(countData.isJoined);
+        isJoined = countData.isJoined;
         updateClubJoinButton(button, isJoined);
     } catch (error) {
         console.error("Failed to load club join status:", error);
@@ -32,6 +37,7 @@ export async function setupClubJoinButton(button, clubId) {
 
             isJoined = Boolean(result.isJoined);
             updateClubJoinButton(button, isJoined);
+            updateMemberCountText(clubId);
         } catch (error) {
             console.error("Failed to update club join:", error);
         } finally {
