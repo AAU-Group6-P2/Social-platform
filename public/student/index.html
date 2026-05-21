@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/css/roles/club_owner.css" />
     <link rel="stylesheet" href="/css/commponents/event_card.css" />
     <link rel="stylesheet" href="/css/commponents/event_template.css" />
-     <link rel="stylesheet" href="/css/commponents/event_details.css">
+    <link rel="stylesheet" href="/css/commponents/event_details.css">
     <link rel="stylesheet" href="/css/commponents/myclub.css" />
     <link rel="stylesheet" href="/css/commponents/event_list.css" />
     <link rel="icon" type="image/png" href="../favicon.png" />
@@ -40,10 +40,14 @@
       <div class="main">
         <div style="margin-top:6px"></div>
 
-        <!--Club list container -->
-        <div id="club-list-box" class="hidden"></div> <!--Find the content in the file components/club_list.html-->
+
+        <!--Kan ikke se at denne bliver brugt -->
+                <!-- Club list container -->
+                <!-- <div id="club-list-box" class="hidden"></div> Find the content in the file components/club_list.html -->
+
+
         <!-- full eventlist container-->
-          <div id="eventlist-page-box" class="hidden"></div> <!--Find the content in the file components/even_list.html-->
+          <div id="eventlist-page-box" class="hidden"></div> <!--Find the content in the file components/even_list.html -->
         <!--Event page container-->
         <div id="event-page-box" class="hidden"></div>
 
@@ -52,47 +56,53 @@
             Clubs & Events
           </h1>
           <div class="button-group">
+
             <!-- Apply to create club or event box -->
             <button class="role-button blue-btn" id="createClubOrEvent">Apply to create Club or Event</button>
             <div id="create-club-or-event_box" class="hidden"></div>
+
             <button class="role-button" id="logOut">Log Out</button>
           </div>
         </div>
-        <div id="event-details-popup"></div>
+
         <div class="subtitle">
             <h3><button class="list-link-btn" id="clubListLink">Show Full Club List</button> |
               <button class="list-link-btn" id="eventListLink">Show Full Event List</button>
             </h3>
         </div>
-          <div class="filter">
-            <h3>Filters</h3>
-          </div>
-          <div style="display:flex; justify-content: start; align-items: center;">
-              <h2 id="currentDate"></h2>
-              <div style="width: 300px;" class="datofilter"></div>
-          </div>
 
-          <!--selve kalenderen-->
-          <div class="calendarcontainer">
-            <div class="header">
-            <button id="previousWeek">←</button>
-              <ul class="weekdays">
-                <li>Mon <span id="day1"></span></li> 
-                <li>Tue <span id="day2"></span></li>
-                <li>Wed <span id="day3"></span></li>
-                <li>Thu <span id="day4"></span></li>
-                <li>Fri <span id="day5"></span></li>
-                <li>Sat <span id="day6"></span></li>
-                <li>Sun <span id="day7"></span></li>
-              </ul>
-            <button id="nextWeek">→</button>
-              </div>
-            <div class="timeslotscontainer">
-              <ul class="timeslots"> </ul>
+        <div id="event-details-popup"></div>
+
+        <div class="filter">
+          <h3>Filters</h3>
+        </div>
+        <div style="display:flex; justify-content: start; align-items: center;">
+            <h2 id="currentDate"></h2>
+            <div style="width: 300px;" class="datofilter"></div>
+        </div>
+
+        <!--selve kalenderen-->
+        <div class="calendarcontainer">
+          <div class="header">
+          <button id="previousWeek">←</button>
+            <ul class="weekdays">
+              <li>Mon <span id="day1"></span></li> 
+              <li>Tue <span id="day2"></span></li>
+              <li>Wed <span id="day3"></span></li>
+              <li>Thu <span id="day4"></span></li>
+              <li>Fri <span id="day5"></span></li>
+              <li>Sat <span id="day6"></span></li>
+              <li>Sun <span id="day7"></span></li>
+            </ul>
+          <button id="nextWeek">→</button>
             </div>
-            <div class="eventcontainer"></div>
-             </div>
-           <script type="module" src="/JS/components/calendar.js"></script>
+              <div class="timeslotscontainer">
+                <ul class="timeslots"> </ul>
+              </div>
+              <!-- //Loads in the events in the eventcontainer (calender.js) -->
+              <div class="eventcontainer"></div>
+            </div>
+          <script type="module" src="/JS/components/calendar.js"></script>
         </div>
       </div>
     </div>

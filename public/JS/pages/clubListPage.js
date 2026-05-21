@@ -14,8 +14,6 @@ async function initClubList() {
         dashboardUrl = role === "club_owner" ? "/owner/index" : "/student/index";
         myClubId = getMyClubId(allClubs);
 
-        console.log("CLUBS:", allClubs); // debug
-
         document.getElementById("eventsAndClubsLink")?.addEventListener("click", () => {
             window.location.href = dashboardUrl;
         });
