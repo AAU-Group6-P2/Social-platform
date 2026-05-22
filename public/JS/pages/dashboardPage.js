@@ -334,7 +334,7 @@ function initDashboard() {
         });
     }
     
-    /* Full eventlist */
+    /* Loads in the Full eventlist */
     let _eventCardTemplate = null;
     let _editModalTemplate = null;
 
@@ -383,9 +383,19 @@ function initDashboard() {
             const cardDiv = clone.querySelector(".event-card");
 
             cardDiv.dataset.eventId = event.id;
-            if (event.clubs?.color) cardDiv.style.borderLeft = `5px solid ${event.clubs.color}`;
+            //Random color for events
+            const fallbackColors = [
+                "#FF6B6B",
+                "#4ECDC4",
+                "#FFD166",
+                "#6A4C93",
+                "#1A936F"
+            ];
 
-            clone.querySelector(".club-name").textContent = event.clubs?.name || "";
+            const color =  event.clubs?.color || fallbackColors[event.id % fallbackColors.length];
+            cardDiv.style.borderLeft = `5px solid ${color}`;
+
+            clone.querySelector(".club-name").textContent = event.clubs?.name || "Independent Event";
             clone.querySelector(".event-title").textContent = event.title || "Event";
             clone.querySelector(".event-date").textContent = event.date;
             clone.querySelector(".event-time").textContent = event.time;
@@ -417,7 +427,7 @@ function initDashboard() {
         }
     }
 
-    // Helpfunction (openEditModal)
+    // zFunction that allows the clubowner to edit eventss (openEditModal)
     function openEditModal(event, template) {
         const existing = document.getElementById("edit-event-modal");
         if (existing) existing.remove();
