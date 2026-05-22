@@ -251,18 +251,18 @@ function initDashboard() {
     //clubowner: creatioin of event 
     if (createEventButton && eventPageBox) {
         createEventButton.addEventListener("click", async () => {
-
+            
             const response = await fetch("/owner/event_template");
             const html = await response.text();
-
+            
             eventPageBox.innerHTML = html;
             eventPageBox.style.display = "flex";
             eventPageBox.classList.remove("hidden");
-
+            
             const closeEventBtn = eventPageBox.querySelector("#close-event-template");
             const eventForm = eventPageBox.querySelector("#event-template-form");
             const statusMessage = eventPageBox.querySelector("#event-form-status");
-
+            
             // Populate club dropdown
             const clubSelectContainer = eventForm?.querySelector("#club-select-container");
             if (clubSelectContainer) {
@@ -271,10 +271,10 @@ function initDashboard() {
                 select.name = "clubId";
                 select.required = true;
                 select.innerHTML = `<option value="">Select a club</option>` +
-                    clubs.map(c => `<option value="${c.id}">${c.name}</option>`).join("");
+                clubs.map(c => `<option value="${c.id}">${c.name}</option>`).join("");
                 clubSelectContainer.appendChild(select);
             }
-
+            
             if (closeEventBtn) {
                 closeEventBtn.addEventListener("click", () => {
                     eventPageBox.style.display = "none";
@@ -282,12 +282,10 @@ function initDashboard() {
                     eventPageBox.innerHTML = "";
                 });
             }
-
+            
             if (eventForm) {
                 eventForm.addEventListener("submit", async submitEvent => {
                     submitEvent.preventDefault();
-
-                    console.log("FORM SUBMIT FIRED");
                     const formData = new FormData(eventForm);
                     const submitButton = eventForm.querySelector('button[type="submit"]');
                     const payload = {
@@ -301,25 +299,24 @@ function initDashboard() {
                         practicalInformation: formData.get("practicalInformation")?.toString().trim(),
                         isPublished: true
                     };
-
+                    
                     if (statusMessage) {
                         statusMessage.textContent = "Saving event...";
                     }
-
+                    
                     try {
                         if (submitButton) {
                             submitButton.disabled = true;
                         }
-
+                        
                         await createEvent(payload);
-
+                        
                         if (statusMessage) {
                             statusMessage.textContent = "Event saved.";
                             eventPageBox.style.display = "none";
                             eventPageBox.classList.add("hidden");
                             eventPageBox.innerHTML = "";
                         }
-
                         eventForm.reset();
                     } catch (error) {
                         if (statusMessage) {
@@ -327,8 +324,10 @@ function initDashboard() {
                         }
                     } finally {
                         if (submitButton) {
+
                             submitButton.disabled = false;
                         }
+                        await loadEventsFromDB();
                     }
                 });
             }
