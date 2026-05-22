@@ -79,48 +79,6 @@
       </div>   
     </div>
 
-    <div id="edit-modal-overlay" class="edit-modal-overlay">
-        <div class="edit-modal">
-            <div class="edit-modal-header">
-                <h3>Edit Club Information</h3>
-                <button class="edit-modal-close" id="edit-modal-close">✕</button>
-            </div>
-            
-            <label>Meeting Day</label>
-            <input type="text" id="edit-regularDate" />
-
-            <label>Time</label>
-            <div class="edit-time-row">
-                <input type="time" id="edit-timeStart" />
-                <span>to</span>
-                <input type="time" id="edit-timeEnd" />
-            </div>
-
-            <label>Place</label>
-            <input type="text" id="edit-regularPlace" />
-
-            <label>Description</label>
-            <textarea id="edit-description"></textarea>
-
-            <label>Contact Email</label>
-            <input type="email" id="edit-contactEmail" />
-
-            <label>Phone</label>
-            <input type="text" id="edit-phone" />
-
-            <label>Club Image</label>
-            <input type="file" id="edit-image" accept="image/*" />
-
-            <label>Club Color Theme</label>
-            <div id="color-swatches" class="color-swatches">
-                </div>
-            <p id="color-warning" class="hidden">This color is already taken!</p>
-
-            <button class="edit-save-btn" id="edit-save-btn">Save changes</button>
-            <div class="edit-status" id="edit-status"></div>
-        </div>
-    </div>
-
     <template id="event-card-template">
         <div class="event-card">
             <h3 class="event-title"></h3>
@@ -129,34 +87,6 @@
             <p><strong>Place:</strong> <span class="event-location"></span></p>
             <div class="event-actions">
                 <button class="button hidden join-event-button">Join event</button>
-            </div>
-        </div>
-    </template>
-
-    <template id="edit-event-modal-template">
-        <div class="edit-modal-overlay" id="edit-event-modal">
-            <div class="edit-modal">
-                <div class="edit-modal-header">
-                    <h3>Edit Event</h3>
-                    <button class="edit-modal-close" id="close-edit-event">✕</button>
-                </div>
-                <label>Title</label>
-                <input type="text" id="edit-event-title" />
-                <label>Date</label>
-                <input type="date" id="edit-event-date" />
-                <label>Time</label>
-                <div class="edit-time-row">
-                    <input type="time" id="edit-event-timeStart" />
-                    <input type="time" id="edit-event-timeEnd" />
-                </div>
-                <label>Location</label>
-                <input type="text" id="edit-event-location" />
-                <label>Description</label>
-                <textarea id="edit-event-description"></textarea>
-                <label>Practical Information</label>
-                <input type="text" id="edit-event-practicalInfo" />
-                <button class="edit-save-btn" id="save-edit-event">Save changes</button>
-                <div class="edit-status" id="edit-event-status"></div>
             </div>
         </div>
     </template>
