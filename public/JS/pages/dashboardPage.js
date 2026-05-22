@@ -5,6 +5,7 @@
     import { getEventJoinCount } from "../services/clubServices.js";
     import { getUserRole } from "../services/clubServices.js";
     import { setupEventJoinButton } from "../components/eventJoinButton.js";
+    import { loadEventsFromDB } from "../components/calendar.js";
     
     
 
@@ -24,14 +25,15 @@ function buildApplySwatchesHTML(takenColors = []) {
 }
 
 function initDashboard() {
+    
     const eventsAndClubsLink = document.getElementById("eventsAndClubsLink");
     if (eventsAndClubsLink) {
         eventsAndClubsLink.addEventListener("click", () => {
             window.location.reload();
         });
     }
-
-
+    
+    
     //Redirect to log in page
     const logOut = document.getElementById("logOut");
     if (logOut) {
@@ -40,20 +42,20 @@ function initDashboard() {
                 method: "POST",
                 credentials: "include"
             });
-
+            
             window.location.href = "/";
         });
     }
-
+    
     /*oppening and closing of the application for club or events box */
     const apply_create_club_or_event = document.getElementById("createClubOrEvent");
     const apply_create_club_or_event_box = document.getElementById("create-club-or-event_box");
     const createEventButton = document.getElementById("createEventButton");
     const eventPageBox = document.getElementById("event-page-box");
-
+    
     if (apply_create_club_or_event) {
         apply_create_club_or_event.addEventListener("click", async () => {
-
+            
             //HTML from separate file
             const response = await fetch("/student/application_club-event_form.html");
             const html = await response.text();
@@ -73,6 +75,7 @@ function initDashboard() {
 
             let applySelectedColor = "";
 
+            //If the club is chosen, the club applicatioin will be displayed
             if (clubCheckbox) {
                 clubCheckbox.addEventListener('change', async function() {
                     if (this.checked) {
@@ -98,7 +101,10 @@ function initDashboard() {
                     }
                 });
             }
+            
+            //If the event is chosen, the event applicatioin will be displayed
             if (eventCheckbox) {
+                
                 eventCheckbox.addEventListener('change', async function() {
                     if (this.checked) {
                         eventFields.style.display = 'block';
@@ -118,7 +124,7 @@ function initDashboard() {
                 });
             }
 
-            // Close-button 
+            // Close-button for the club/event application form
             const closeBtn = document.getElementById("close-page");
             if (closeBtn) {
                 closeBtn.addEventListener("click", () => {
@@ -128,49 +134,53 @@ function initDashboard() {
                 });
             }
 
+            //Student: Supmission of the club or event application 
             const appForm = document.getElementById("application_for_club_or_event_form");
             if (appForm) {
+                
                 appForm.addEventListener("submit", async (e) => {
                     e.preventDefault();
                     const formData = new FormData(appForm);
                     const submitBtn = appForm.querySelector('button[type="submit"]');
                     const projectType = formData.get("projectType");
-
+                    
                     if (!projectType) {
                         alert("Please select Create Club or Create Event.");
                         return;
                     }
-
+                    
                     try {
-                        if (submitBtn) submitBtn.disabled = true;
-
+                        if (submitBtn){
+                            submitBtn.disabled = true;
+                        } 
+                        
                         if (projectType === "club") {
-                            const payload = {
+                            const clubData = {
                                 name: formData.get("clubName")?.toString().trim(),
                                 category: formData.get("category")?.toString().trim(),
                                 contactEmail: formData.get("email")?.toString().trim(),
                                 phone: formData.get("phone")?.toString().trim()
                             };
-
-                            if (!payload.name || !payload.category) {
+                            
+                            if (!clubData.name || !clubData.category) {
                                 alert("Club name and category are required.");
                                 return;
                             }
-
+                            
                             const res = await fetch("/clubs", {
                                 method: "POST",
                                 headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify(payload)
+                                body: JSON.stringify(clubData)
                             });
-
+                            
                             if (!res.ok) {
                                 const err = await res.json();
                                 throw new Error(err.error || err.message || "Failed to create club.");
                             }
-
+                            
                             const newClub = await res.json();
                             const newClubId = newClub.id;
-
+                            
                             const imageInput = document.getElementById("apply-club-image");
                             if (imageInput && imageInput.files.length > 0) {
                                 const imgForm = new FormData();
@@ -180,7 +190,7 @@ function initDashboard() {
                                     body: imgForm
                                 });
                             }
-
+                            
                             if (applySelectedColor) {
                                 await fetch(`/clubs/${newClubId}`, {
                                     method: "PATCH",
@@ -188,11 +198,11 @@ function initDashboard() {
                                     body: JSON.stringify({ color: applySelectedColor })
                                 });
                             }
-
+                            
                             alert("Club created successfully!");
-
+                            
                         } else {
-                            const payload = {
+                            const eventData = {
                                 name: formData.get("name")?.toString().trim(),
                                 date: formData.get("date")?.toString().trim(),
                                 timeStart: formData.get("timeStart")?.toString().trim(),
@@ -203,26 +213,28 @@ function initDashboard() {
                                 practicalInformation: formData.get("practicalInformation")?.toString().trim(),
                                 isPublished: true
                             };
-
-                            if (!payload.name || !payload.date || !payload.timeStart || !payload.timeEnd || !payload.clubId || !payload.location || !payload.description) {
+                            
+                            if (!eventData.name || !eventData.date || !eventData.timeStart || !eventData.timeEnd || !eventData.clubId || !eventData.location || !eventData.description) {
                                 alert("Please fill in all required event fields.");
                                 return;
                             }
-
+                            
                             const res = await fetch("/events", {
                                 method: "POST",
                                 headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify(payload)
+                                body: JSON.stringify(eventData)
                             });
-
+                            
                             if (!res.ok) {
                                 const err = await res.json();
                                 throw new Error(err.error || err.message || "Failed to create event.");
                             }
-
+                            
+                            await loadEventsFromDB();
+                            
                             alert("Event created successfully!");
                         }
-
+                        
                         apply_create_club_or_event_box.style.display = "none";
                         apply_create_club_or_event_box.classList.add("hidden");
                         apply_create_club_or_event_box.innerHTML = "";
@@ -236,6 +248,7 @@ function initDashboard() {
         });
     }
 
+    //clubowner: creatioin of event 
     if (createEventButton && eventPageBox) {
         createEventButton.addEventListener("click", async () => {
 
@@ -274,6 +287,7 @@ function initDashboard() {
                 eventForm.addEventListener("submit", async submitEvent => {
                     submitEvent.preventDefault();
 
+                    console.log("FORM SUBMIT FIRED");
                     const formData = new FormData(eventForm);
                     const submitButton = eventForm.querySelector('button[type="submit"]');
                     const payload = {
@@ -304,7 +318,6 @@ function initDashboard() {
                             eventPageBox.style.display = "none";
                             eventPageBox.classList.add("hidden");
                             eventPageBox.innerHTML = "";
-                            location.reload();
                         }
 
                         eventForm.reset();

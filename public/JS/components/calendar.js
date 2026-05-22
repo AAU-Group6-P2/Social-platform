@@ -4,7 +4,7 @@ import { setupEventJoinButton } from "./eventJoinButton.js";
 let events = [];
 
 /*Function that loads the events into the array events  */
-async function loadEventsFromDB() {
+export async function loadEventsFromDB() {
     try {
         events = await getEvents();
         renderWeek(); //this rerenders calender after loading
