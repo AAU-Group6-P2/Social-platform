@@ -229,11 +229,9 @@ async function openEventPage(event) {
     const html = await response.text();
 
     const container = document.getElementById("event-details-popup");
-    container.innerHTML = `<div id="event-modal">${html}</div>`;
+    container.innerHTML = html;
 
     container.style.display = "flex";
-    
-    const modal = container.querySelector("#event-modal");
 
     container.querySelector("#event-title").textContent = event.title;
     container.querySelector("#event-date-time").textContent = `${event.date} at ${event.time}`;
@@ -249,9 +247,8 @@ async function openEventPage(event) {
         practicalList.appendChild(li);
     }
 
-    //If user is a student load in the 
+    //If user is a student load in the join button else load in the joined count if the user is Club Owner
     const role = await getUserRole();
-
     if(role === "student"){
 
         const joinButton = container.querySelector("#join-event-btn");
