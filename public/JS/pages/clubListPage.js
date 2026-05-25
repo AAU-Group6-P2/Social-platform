@@ -40,6 +40,7 @@ async function loadClubs() {
     }
 }
 
+//Find the club owners club - Finds the newest created club
 function getMyClubId(clubs) {
     if (role !== "club_owner" || !clubs.length) return null;
 
@@ -47,14 +48,14 @@ function getMyClubId(clubs) {
     return String(myClub.id);
 }
 
-/* RENDER CLUBS */
+/* Render clubs */
 function renderClubs(clubs) {
     const container = document.getElementById("club-list");
     const template = document.getElementById("club-card-template");
 
     if (!container || !template) return;
 
-    container.innerHTML = ""; // 
+    container.innerHTML = ""; 
 
     if (!clubs || clubs.length === 0) {
         container.innerHTML = "<p>No clubs found</p>";
@@ -65,7 +66,7 @@ function renderClubs(clubs) {
         const clone = template.content.cloneNode(true);
         const card = clone.querySelector(".club-card");
         
-        //Set ID and color 
+        // Set ID and color 
         card.dataset.id = club.id;
         if (club.color) {
             card.style.borderLeft = `5px solid ${club.color}`;
@@ -74,7 +75,7 @@ function renderClubs(clubs) {
         //Fill out name 
         clone.querySelector(".club-name-placeholder").textContent = club.name;
 
-        //"My Club" Badge
+        //"My Club" Badge - Shows the newest club  made, d adding a badge to it 
         const isMine = role === "club_owner" && myClubId && String(club.id) === myClubId;
         const badge = clone.querySelector(".my-club-badge");
         if (isMine) {
@@ -92,11 +93,12 @@ function renderClubs(clubs) {
             img.remove(); 
         }
 
+        //Adds the club to the page 
         container.appendChild(clone);
     });
 }
 
-/* CLICK EVENT (ONLY ONCE!) */
+/* Click club and be directed to the specific club page  */
 document.getElementById("club-list")?.addEventListener("click", (e) => {
     const card = e.target.closest(".club-card");
     if (!card) return;
@@ -105,7 +107,7 @@ document.getElementById("club-list")?.addEventListener("click", (e) => {
     window.location.href = `${clubPageUrl}?id=${card.dataset.id}`;
 });
 
-/* FILTER */
+/* Filter of the clubs in categories*/
 function filterClubs(category) {
     if (category === "all") {
         renderClubs(allClubs);
@@ -119,7 +121,7 @@ function filterClubs(category) {
     updateActiveButton(category);
 }
 
-
+//Finds the selected category and sets it to active 
 function updateActiveButton(category) {
     document.querySelectorAll(".filter-btn").forEach(btn => {
         btn.classList.remove("active");
@@ -130,12 +132,10 @@ function updateActiveButton(category) {
     });
 }
 
-
 window.filterClubs = filterClubs;
 
-/* GO TO TOP */
+/* Go to the top button */
 const toTop = document.getElementById("goToTheTop");
-
 if (toTop) {
     toTop.addEventListener("click", () => {
         window.scrollTo({
@@ -147,11 +147,11 @@ if (toTop) {
 
 initClubList();
 
-
 window.addEventListener("pageshow", (e) => {
     if (e.persisted) loadClubs();
 });
 
+//Adds an eventlistener to each category so there can be filtered when a category is clicked
 document.querySelectorAll(".filter-btn").forEach(btn => {
     btn.addEventListener("click", () => {
         filterClubs(btn.dataset.category);
