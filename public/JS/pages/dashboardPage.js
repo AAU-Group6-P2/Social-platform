@@ -50,8 +50,6 @@ function initDashboard() {
     /*oppening and closing of the application for club or events box */
     const apply_create_club_or_event = document.getElementById("createClubOrEvent");
     const apply_create_club_or_event_box = document.getElementById("create-club-or-event_box");
-    const createEventButton = document.getElementById("createEventButton");
-    const eventPageBox = document.getElementById("event-page-box");
     
     if (apply_create_club_or_event) {
         apply_create_club_or_event.addEventListener("click", async () => {
@@ -249,6 +247,9 @@ function initDashboard() {
     }
 
     //clubowner: creatioin of event 
+    const eventPageBox = document.getElementById("event-page-box");
+    const createEventButton = document.getElementById("createEventButton");
+
     if (createEventButton && eventPageBox) {
         createEventButton.addEventListener("click", async () => {
             
@@ -342,6 +343,7 @@ function initDashboard() {
         const events = await getEvents();
         const now = new Date();
 
+        //Removes old events 
         const filteredAndSorted = events
             .filter(event => {
                 const eventDateTime = new Date(`${event.date} ${event.time.split("-")[0]}`);
@@ -370,6 +372,7 @@ function initDashboard() {
         return filteredAndSorted;
     }
 
+    //Function that loads all the events in and place them in the event_list.html in the full-eventlist-container
     async function renderEventCards(eventsToRender) {
         const container = document.querySelector(".full-eventlist-container");
         if (!container) return;
@@ -402,13 +405,14 @@ function initDashboard() {
             clone.querySelector(".event-location").textContent = event.location;
             clone.querySelector(".event-description").textContent = event.description || "";
 
+            //Set up join button if the user is a student 
             const joinBtn = clone.querySelector(".join-event-button");
-
             if (role === "student") {
                 await setupEventJoinButton(joinBtn, event.id);
                 joinBtn.classList.remove("hidden");
             }
 
+            //Club Owner get the joined count displayed and the posebility of editing the event
             if (isOwner) {
                 const countData = await getEventJoinCount(event.id);
                 const joinCount = document.createElement("span");
@@ -427,7 +431,7 @@ function initDashboard() {
         }
     }
 
-    // zFunction that allows the clubowner to edit eventss (openEditModal)
+    // Function that allows the clubowner to edit eventss 
     function openEditModal(event, template) {
         const existing = document.getElementById("edit-event-modal");
         if (existing) existing.remove();
@@ -477,7 +481,7 @@ function initDashboard() {
         };
     }
 
-    // Function for opening the site with the list 
+    // Function for opening the Event list 
     async function openFullEventList() {
         const box = document.getElementById("eventlist-page-box");
         const response = await fetch("/components/event_list.html");
@@ -487,6 +491,7 @@ function initDashboard() {
 
         const allEvents = await loadFullEventList();
 
+        //Filter the events based on when they find place 
         box.querySelectorAll(".filter-btn").forEach(btn => {
             btn.addEventListener("click", () => {
                 box.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
@@ -518,7 +523,7 @@ function initDashboard() {
         });
     }
 
-    // Event listener to sidebar-link
+    // Opens the Event List 
     const eventListLink = document.getElementById("eventListLink");
     if (eventListLink) {
         eventListLink.addEventListener("click", openFullEventList);
@@ -533,13 +538,13 @@ function initDashboard() {
         }
     });
 
-    // Club list link
+    // Opening of the club list 
     const clubListLink = document.getElementById("clubListLink");
     if (clubListLink) {
         clubListLink.addEventListener("click", () => {
             window.location.href = "/components/clubs.html";
         });
     }
-} // End of initDashboard
+}
 
 document.addEventListener("DOMContentLoaded", initDashboard);
