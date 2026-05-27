@@ -1,7 +1,7 @@
 import { getJoinCount, joinClub, undoJoinClub } from "../services/clubServices.js";
 
 function updateClubJoinButton(button, isJoined = false) {
-    button.textContent = isJoined ? "You are joined Undo" : "Join club";
+    button.textContent = isJoined ? "You are joined | Undo" : "Join club";
     button.classList.toggle("joined", isJoined);
 }
 

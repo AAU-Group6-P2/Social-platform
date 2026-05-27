@@ -5,9 +5,14 @@
     import { getEventJoinCount } from "../services/clubServices.js";
     import { getUserRole } from "../services/clubServices.js";
     import { setupEventJoinButton } from "../components/eventJoinButton.js";
-    import { loadEventsFromDB } from "../components/calendar.js";
+    // import { loadEventsFromDB } from "../components/calendar.js";
+    import { loadEventsFromDB, initCalendar } from "../components/calendar.js";
     
     
+document.addEventListener("DOMContentLoaded", () => {
+    initDashboard();
+    initCalendar();
+});
 
 const PRESET_COLORS = [
     "#e74c3c", "#e67e22", "#f1c40f", "#2ecc71", "#1abc9c",

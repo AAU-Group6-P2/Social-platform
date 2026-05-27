@@ -5,7 +5,7 @@ export function formatEventJoinText(joined = 0) {
 }
 
 export function formatJoinedEventText(joined = 0) {
-    return `You are joined (${joined} joined) Undo`;
+    return `You are joined (${joined} joined) | Undo`;
 }
 
 function updateEventJoinButton(button, joined = 0, isJoined = false) {

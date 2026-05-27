@@ -93,6 +93,9 @@ async function init() {
             clone.querySelector(".event-date").textContent = event.date;
             clone.querySelector(".event-time").textContent = event.time;
             clone.querySelector(".event-location").textContent = event.location;
+            clone.querySelector(".event-description").textContent = event.description;
+            clone.querySelector(".event-practicalInformation").textContent = event.practicalInfo;
+
 
             if (isOwner) {
                 const actions = clone.querySelector(".event-actions");

@@ -1,6 +1,7 @@
 import { getEvents, getEventJoinCount, getUserRole } from "../services/clubServices.js";
 import { setupEventJoinButton } from "./eventJoinButton.js";
 
+
 let events = [];
 
 /*Function that loads the events into the array events  */
@@ -30,7 +31,7 @@ function updateCalendarTimeRange(monday){
 
     events.forEach(event=> {
         const eventDate = new Date(event.date)
-        
+
         const diffFromMonday = Math.floor((eventDate - monday)/ (1000*60*60*24));
 
         if (diffFromMonday >=0 && diffFromMonday<7){
@@ -38,7 +39,7 @@ function updateCalendarTimeRange(monday){
             const { start, end } = splitTimeRange(event.time);
 
             const [startHour] = start.split(":").map(Number);
-            let [endHour] = end.split(":").map(Number); 
+            let [endHour] = end.split(":").map(Number);
             if (end === "00:00") { //Changes end to 24:00 if it ends at 00:00 because gets translated to 0 so the beginning of the day
                 endHour = 24;
             }
@@ -46,7 +47,7 @@ function updateCalendarTimeRange(monday){
             if (startHour < earliestHour){
                 earliestHour = startHour;
             }
-            
+
             if (endHour > latestHour){
                 latestHour = endHour;
             }
@@ -57,7 +58,7 @@ function updateCalendarTimeRange(monday){
     }
 
 /* Tider i kalender */
- 
+
 function renderTimeslots(){
     const timeslots = document.querySelector(".timeslots");
     timeslots.innerHTML = "";
@@ -70,7 +71,7 @@ function renderTimeslots(){
     const rowCount = (calendarEndHour - calendarStartHour) * 4;
 
     document.querySelector(".eventcontainer").style.gridTemplateRows = "repeat("+ rowCount +", 10px)";
-    
+
 }
 
 /* Event placering i kalenderen*/
@@ -126,12 +127,12 @@ function renderTimeslots(){
                 }
                 element.style.gridRow = timeToRow(start) + " / " + timeToRow(end); //starter fra mængde kvarter vi er inde i døgnet, og strækker sig til slut - igen antal kvarter inde i døgnet.
                 //i css er syntaks gridrow = start /end.
-                container.appendChild(element); //og så tilføjer vi til sidst 
+                container.appendChild(element); //og så tilføjer vi til sidst
             }
         });
 }
 
-// dato som objekt - 
+// dato som objekt -
 
         /*  DATO METHODS:
 
@@ -141,29 +142,31 @@ function renderTimeslots(){
 
         getFullYear -> 2026
         getMonth() -> 0-11; jan, feb osv.
-        getDate() -> dage i måneden 1-31; 
+        getDate() -> dage i måneden 1-31;
         getDay() -> dag i ugen 0-7; man, tir, osv.
 
         */
 
 
 
-/* Dags dato over kalenderen*/ 
+/* Dags dato over kalenderen*/
 
     function updateDate(){
+        const el = document.getElementById("currentDate");
+        if (!el) return;
 
         const date = new Date();
 
         const today = {
-            year: date.getFullYear(), // Indeværende år 
-            month: date.getMonth()+1, // Indeværende måned 0 = januar, 11 = december 
-            day: date.getDate() // indeværende dag; 14., 15. 
+            year: date.getFullYear(), // Indeværende år
+            month: date.getMonth()+1, // Indeværende måned 0 = januar, 11 = december
+            day: date.getDate() // indeværende dag; 14., 15.
         }
 
-    document.getElementById("currentDate").textContent = today.day + "." + today.month + "." + today.year;
+        el.textContent = today.day + "." + today.month + "." + today.year;
     }
 
-    setInterval(updateDate, 100);
+    // setInterval(updateDate, 100);
 
 /* Dynamiske datoer i selve kalenderen */
 
@@ -174,7 +177,7 @@ function renderTimeslots(){
 
 
         let currentDay = today.getDay(); //Finder ud af hvilken dag nuværende dag er
-            if (currentDay === 0){ 
+            if (currentDay === 0){
                 currentDay = 7 //hvis dagen er søndag, sættes søndag til 7
             }
 
@@ -218,10 +221,10 @@ function previousWeek() {
     renderWeek();
 }
 
-loadEventsFromDB();
+// loadEventsFromDB();
 
-document.getElementById("previousWeek").addEventListener("click", previousWeek);
-document.getElementById("nextWeek").addEventListener("click", nextWeek);
+// document.getElementById("previousWeek").addEventListener("click", previousWeek);
+// document.getElementById("nextWeek").addEventListener("click", nextWeek);
 
 async function openEventPage(event) {
 
@@ -262,7 +265,7 @@ async function openEventPage(event) {
         joinCount.classList.remove("hidden");
     }
 
-   
+
 }
 
 document.addEventListener("click", (e) => {
@@ -270,3 +273,21 @@ document.addEventListener("click", (e) => {
         document.getElementById("event-details-popup").style.display = "none";
     }
 });
+
+export function initCalendar() {
+    const required = document.getElementById("currentDate");
+    if (!required) return;
+
+    updateDate();
+    renderWeek();
+
+    setInterval(updateDate, 60000);
+
+    const prevBtn = document.getElementById("previousWeek");
+    const nextBtn = document.getElementById("nextWeek");
+
+    if (prevBtn) prevBtn.addEventListener("click", previousWeek);
+    if (nextBtn) nextBtn.addEventListener("click", nextWeek);
+
+    loadEventsFromDB();
+}
