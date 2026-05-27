@@ -53,8 +53,10 @@ Installation
   3. Install dependencies: npm install
 
 Environment Variables
-Create a .env file inside the backend/ folder. Add the following variable:
-  • SUPABASE SERVICE KEY=your supabase service key
+There is alredy created a .env file inside the backend/ folder. Where the following variable i added:
+  • SUPABASE SERVICE KEY = sb_secret_ffMziBeRNYgNVO_-m9kEZQ_QbagMxzT
+This is done to there can be connected to the database, and the relevant data can be fetched and updated, when the application is run. Furthermore the url to the suppabase can be found in backend/Supabase.js, and here: https://sjtapuesjqubmdawxwzm.supabase.co
+
 
 Running the Application
   1. Start the server: npm start or node server.js
